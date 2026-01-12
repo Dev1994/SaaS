@@ -1,5 +1,9 @@
 ﻿# SaaS – South African as a Service 🥩🇿🇦
 
+<p align="center">
+  <img src="assets/SaaS.png" alt="South African Phrases Illustration" width="600"/>
+</p>
+
 **Sharp sharp!** South African phrases, slang, and culture served fresh via a simple API. Perfect for Dutchies, expats, or anyone who wants to shout *voetsek* in style.
 
 SaaS is the little API that makes South African culture accessible, fun, and sometimes downright cheeky. Whether you’re testing your API skills or educating Dutch colleagues, we’ve got your back.
