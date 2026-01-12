@@ -1,0 +1,6 @@
+@SaffaApi_HostAddress = http://localhost:5286
+
+GET {{SaffaApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

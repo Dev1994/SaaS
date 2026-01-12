@@ -1,0 +1,245 @@
+[
+  {
+    "text": "Ag, man!",
+    "category": "expression",
+    "actualMeaning": "Oh man! Expresses pity, resignation, or irritation.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "This is not 'ach man' in Dutch; it’s more like 'oh jee, man'.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Aikona!",
+    "category": "expression",
+    "actualMeaning": "Used to express shock or disbelief.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'ikona'; more like 'nee joh!' or 'echt waar?'.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Babbelas",
+    "category": "slang",
+    "actualMeaning": "A hangover; feeling rough after drinking.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'babbelaz'. It means you are hungover, not talking too much.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Biltong",
+    "category": "cultural",
+    "actualMeaning": "Dried cured meat snack, iconic in South Africa.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not beef jerky. Softer, tastier, often spiced differently.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Bobotie",
+    "category": "cultural",
+    "actualMeaning": "Spicy-sweet baked minced meat dish with egg custard topping.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Think 'gehakt ovenschotel', but uniquely South African.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Bliksem",
+    "category": "slang",
+    "actualMeaning": "Can mean to hit someone or used as an expression of surprise.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not lightning. More like 'poef!' or 'slaan!' depending on context.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Boet",
+    "category": "slang",
+    "actualMeaning": "Friend, brother, or male buddy.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'boet' in Dutch; use it like 'maat' or 'bro'.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Boerewors",
+    "category": "cultural",
+    "actualMeaning": "Sausage often braaied; literally 'farmer’s sausage'.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not a hot dog. Unique spiced sausage, best at a braai.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Bra / Bru",
+    "category": "slang",
+    "actualMeaning": "Friend, buddy, pal.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'bra' like in English; say 'maat' or 'vriend'.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Braai",
+    "category": "cultural",
+    "actualMeaning": "Barbecue / social gathering; more than just food.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not a 'barbecue' only; it’s an event with friends, drinks, and meat.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Eina!",
+    "category": "expression",
+    "actualMeaning": "Expression of sudden pain.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'pijn!' literally; used more like 'au!'",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Eish!",
+    "category": "expression",
+    "actualMeaning": "Used when surprised, shocked, or dismayed.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'eis'; like 'jeetje!' or 'wow!'.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Fundi",
+    "category": "slang",
+    "actualMeaning": "An expert, teacher, or very knowledgeable person.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'fundi' in Dutch; more like 'expert' or 'kenner'.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Gatvol",
+    "category": "slang",
+    "actualMeaning": "Fed up, had enough.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'gat vol' literally; it means 'ik ben er helemaal klaar mee!'.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Hayibo!",
+    "category": "expression",
+    "actualMeaning": "Used to indicate something unbelievable.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'hai bo'; more like 'nee joh!' or 'niet te geloven!'.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Ja, Nee",
+    "category": "expression",
+    "actualMeaning": "Yes, but also no; agreement depending on context.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'ja nee' literally; context decides if it’s agreement or mild rejection.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Jislaaik",
+    "category": "expression",
+    "actualMeaning": "Exclamation of shock or surprise.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not Dutch 'jislajik'; think 'jemig!'",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Jol",
+    "category": "slang",
+    "actualMeaning": "To have fun, party, or enjoy oneself.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'jol' like in Dutch; it’s partying and fun, not a stroll.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Laaitie",
+    "category": "slang",
+    "actualMeaning": "Young person or small child.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'laaitje' exactly; just a kid or youngster.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Laduma!",
+    "category": "expression",
+    "actualMeaning": "Shouted when a soccer team scores a goal.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'laduma' in Dutch; think 'goal!' shouted loudly.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Lekker",
+    "category": "expression",
+    "actualMeaning": "Good, nice, fun, or tasty — always positive.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not just 'lekker' in Dutch; can describe mood, food, or event.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Padkos",
+    "category": "cultural",
+    "actualMeaning": "Travel food; food packed for a journey.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'padkos' literally; like 'proviand voor onderweg'.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Sarmie",
+    "category": "cultural",
+    "actualMeaning": "A sandwich.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Not 'sarmie' in Dutch; just a casual sandwich.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Shongololo",
+    "category": "cultural",
+    "actualMeaning": "Large black-brown millipede.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not an insect you’d find in the Netherlands; it’s a millipede.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Ubuntu",
+    "category": "expression",
+    "actualMeaning": "I am because we are; shared humanity.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'ubuntu' like a computer; it’s a philosophy about humanity.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Yebo",
+    "category": "expression",
+    "actualMeaning": "Yes! Strong affirmative.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Not 'ja'; very enthusiastic yes, often repeated.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Just now",
+    "category": "south-african",
+    "actualMeaning": "Eventually. Not today energy.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "This is not 'zo meteen'. Do not wait.",
+    "misunderstandingProbability": 0.97,
+    "confidence": "High"
+  }
+]
