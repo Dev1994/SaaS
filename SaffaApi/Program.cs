@@ -63,7 +63,7 @@ app.MapOpenApi();
 app.MapScalarApiReference(options =>
 {
     options
-        .WithTitle("Saffa – South African as a Service")
+        .WithTitle("Saffa – Saffa as a Service")
         .WithTheme(ScalarTheme.Solarized);
 });
 
