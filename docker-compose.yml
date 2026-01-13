@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  saffaapi:
+    build:
+      context: ./SaffaApi
+      dockerfile: Dockerfile
+    container_name: saffa-api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    volumes:
+      - ./SaffaApi/data:/app/data
+    networks:
+      - saffa-network
+    restart: always
+
+networks:
+  saffa-network:
+    driver: bridge
