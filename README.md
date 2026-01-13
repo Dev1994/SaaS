@@ -1,4 +1,4 @@
-﻿# SaaS – South African as a Service 🥩🇿🇦
+﻿# SaaS – Saffa as a Service 🥩🇿🇦
 
 <p align="center">
   <img src="assets/SaaS.png" alt="South African Phrases Illustration" width="600"/>
