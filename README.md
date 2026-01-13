@@ -30,6 +30,8 @@ SaaS brings the **essence of South Africa** to your fingertips:
 * 📂 Filter by **category**: slang, expression, cultural, south-african
 * 🖥️ Tiny, clean **.NET 10 Minimal API**
 * 🟨 Beautiful **Scalar UI** & OpenAPI docs
+* 🚦 **Smart rate limiting** with chained policies
+* ⚡ **Token bucket** algorithm for smooth request handling
 
 ---
 
@@ -44,6 +46,17 @@ SaaS brings the **essence of South Africa** to your fingertips:
 | Just now | south-african | Eventually. Not today energy.                       | Yes                 | This is not 'zo meteen'. Do not wait.                            |
 
 > And many more! Check the `/phrase` endpoint for the full collection.
+
+---
+
+## 🚀 Live API
+
+The API is deployed and ready to use! No need to run it locally:
+
+**🌐 Live API:** https://saas.volkwyn.nl  
+**📖 Interactive Documentation:** https://saas.volkwyn.nl/scalar/
+
+Try it out directly in your browser with the Scalar UI for testing requests and exploring all available endpoints!
 
 ---
 
@@ -84,26 +97,64 @@ HTTPS: https://localhost:7023
 
 ---
 
+## 🚦 Rate Limiting
+
+To keep the API running smoothly for everyone, we've implemented **intelligent chained rate limits**:
+
+### **Dual-Layer Protection**
+* **🏃‍♂️ Burst Protection**: 100 requests per minute per IP (token bucket algorithm)
+* **🛡️ Abuse Prevention**: 500 requests per hour per IP (fixed window)
+* **⚡ Smart Queuing**: Brief request queuing when approaching limits
+
+### **How It Works**
+- **Token Bucket**: Provides smooth rate limiting with automatic token replenishment every minute
+- **Chained Enforcement**: Both limits are checked simultaneously - you must pass BOTH
+- **Per-IP Tracking**: Limits are applied individually per IP address
+- **Graceful Degradation**: Requests are queued briefly before rejection when limits are approached
+
+### **Rate Limit Response**
+If you hit either limit, you'll get this friendly South African response:
+```http
+HTTP/1.1 429 Too Many Requests
+
+Eish! You're going too fast there, boet! Slow down a bit and try again later. 🐢
+```
+
+### **Usage Guidelines**
+- **Normal usage**: You'll never hit these limits
+- **Testing/Development**: Plenty of headroom for API exploration
+- **Production apps**: Generous limits for real-world usage
+- **Need more?** Reach out if you have legitimate high-volume needs
+
+**Technical Note**: The API uses a combination of `TokenBucketRateLimiter` for minute-based smoothing and `FixedWindowRateLimiter` for hourly enforcement.
+
+---
+
 ## Example Requests
 
 ### Get a random phrase
 ```bash
-curl http://localhost:5286/phrase
+curl https://saas.volkwyn.nl/phrase
 ```
 
 ### Get a phrase with Dutch explanation
 ```bash
-curl http://localhost:5286/phrase/dutch
+curl https://saas.volkwyn.nl/phrase/dutch
 ```
 
 ### Get a specific phrase
 ```bash
-curl http://localhost:5286/phrase/braai
+curl https://saas.volkwyn.nl/phrase/braai
 ```
 
 ### Get phrases by category
 ```bash
-curl http://localhost:5286/phrase/category/slang
+curl https://saas.volkwyn.nl/phrase/category/slang
+```
+
+**Or try it locally:**
+```bash
+curl http://localhost:5286/phrase
 ```
 
 **Sample Response:**
@@ -141,9 +192,11 @@ SaffaApi/
 ## Technology Stack
 
 - **.NET 10** - Latest .NET framework
-- **ASP.NET Core Minimal APIs** - Lightweight API framework
+- **ASP.NET Core Minimal APIs** - Lightweight API framework  
+- **Built-in Rate Limiting** - Token bucket + fixed window algorithms
 - **Scalar.AspNetCore** - Modern API documentation UI
 - **Microsoft.AspNetCore.OpenApi** - OpenAPI specification support
+- **JSON Data Store** - Simple, fast phrase storage
 
 ---
 

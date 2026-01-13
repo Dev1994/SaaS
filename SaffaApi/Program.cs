@@ -1,25 +1,65 @@
 ﻿using SaffaApi.Models;
 using SaffaApi.Services;
 using Scalar.AspNetCore;
+using System.Threading.RateLimiting;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Path to your phrases.json
 var phrasesFile = Path.Combine(builder.Environment.ContentRootPath, "data", "phrases.json");
 
-// Register as singleton since the data is read-only and immutable
 builder.Services.AddSingleton<IPhraseService>(provider => new PhraseService(phrasesFile));
 
-// Add OpenAPI (Swagger)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("ApiPolicy", context =>
+    {
+        var ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        
+        return RateLimitPartition.Get($"minute_{ipAddress}", partition =>
+            new TokenBucketRateLimiter(new TokenBucketRateLimiterOptions
+            {
+                TokenLimit = 100,
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 10,
+                ReplenishmentPeriod = TimeSpan.FromMinutes(1),
+                TokensPerPeriod = 100,
+                AutoReplenishment = true
+            }));
+    });
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: $"hourly_{ipAddress}",
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 500,
+                Window = TimeSpan.FromHours(1),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 5
+            });
+    });
+    
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = 429;
+        await context.HttpContext.Response.WriteAsync(
+            "Eish! You're going too fast there, boet! Slow down a bit and try again later. 🐢", 
+            cancellationToken: token);
+    };
+});
+
 WebApplication app = builder.Build();
 
-// OpenAPI endpoint
+app.UseRateLimiter();
+
 app.MapOpenApi();
 
-// Scalar UI
 app.MapScalarApiReference(options =>
 {
     options
@@ -27,28 +67,26 @@ app.MapScalarApiReference(options =>
         .WithTheme(ScalarTheme.Solarized);
 });
 
-// Root endpoint
 app.MapGet("/", () => new
 {
     name = "South African as a Service",
     status = "Sharp sharp!"
-});
+}).RequireRateLimiting("ApiPolicy");
 
-// Get a random phrase (optionally filter by category or language)
 app.MapGet("/phrase", (IPhraseService service) => Results.Ok((object?) service.GetRandom()))
     .WithName("GetRandomPhrase")
     .WithSummary("Get a random South African phrase")
     .WithDescription("Returns a random South African slang term or expression. Sharp sharp!")
-    .WithTags("Phrases");
+    .WithTags("Phrases")
+    .RequireRateLimiting("ApiPolicy");
 
-// Get a random Dutch-explained phrase
 app.MapGet("/phrase/dutch", (IPhraseService service) => Results.Ok((object?) service.GetRandomForDutch()))
     .WithName("GetRandomDutchPhrase")
     .WithSummary("Get a random phrase explained for Dutchies")
     .WithDescription("Returns a random South African phrase with a playful Dutch explanation.")
-    .WithTags("Phrases");
+    .WithTags("Phrases")
+    .RequireRateLimiting("ApiPolicy");
 
-// Get phrase by exact term
 app.MapGet("/phrase/{term}", (string term, IPhraseService service) =>
     {
         Phrase? phrase = service.GetByTerm(term);
@@ -56,13 +94,14 @@ app.MapGet("/phrase/{term}", (string term, IPhraseService service) =>
     })
     .WithName("GetPhraseByTerm")
     .WithSummary("Get a phrase by exact term")
-    .WithTags("Phrases");
+    .WithTags("Phrases")
+    .RequireRateLimiting("ApiPolicy");
 
-// Get phrases by category
 app.MapGet("/phrase/category/{category}",
         (string category, IPhraseService service) => Results.Ok((object?) service.GetByCategory(category)))
     .WithName("GetPhrasesByCategory")
     .WithSummary("Get phrases filtered by category (slang, cultural, expression)")
-    .WithTags("Phrases");
+    .WithTags("Phrases")
+    .RequireRateLimiting("ApiPolicy");
 
 app.Run();
