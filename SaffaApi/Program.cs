@@ -69,7 +69,7 @@ app.MapScalarApiReference(options =>
 
 app.MapGet("/", () => new
 {
-    name = "South African as a Service",
+    name = "Saffa as a Service",
     status = "Sharp sharp!"
 }).RequireRateLimiting("ApiPolicy");
 
