@@ -12,12 +12,29 @@ builder.Services.AddSingleton<IPhraseService>(provider => new PhraseService(phra
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(60);
+});
+
 builder.Services.AddRateLimiter(options =>
 {
     options.AddPolicy("ApiPolicy", context =>
     {
         var ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-        
+
         return RateLimitPartition.Get($"minute_{ipAddress}", partition =>
             new TokenBucketRateLimiter(new TokenBucketRateLimiterOptions
             {
@@ -33,7 +50,7 @@ builder.Services.AddRateLimiter(options =>
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
     {
         var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-        
+
         return RateLimitPartition.GetFixedWindowLimiter(
             partitionKey: $"hourly_{ipAddress}",
             factory: partition => new FixedWindowRateLimiterOptions
@@ -44,17 +61,25 @@ builder.Services.AddRateLimiter(options =>
                 QueueLimit = 5
             });
     });
-    
+
     options.OnRejected = async (context, token) =>
     {
         context.HttpContext.Response.StatusCode = 429;
         await context.HttpContext.Response.WriteAsync(
-            "Eish! You're going too fast there, boet! Slow down a bit and try again later. 🐢", 
+            "Eish! You're going too fast there, boet! Slow down a bit and try again later. 🐢",
             cancellationToken: token);
     };
 });
 
 WebApplication app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+    app.UseHsts();
+}
+
+app.UseCors("AllowAllOrigins");
 
 app.UseRateLimiter();
 
@@ -73,14 +98,14 @@ app.MapGet("/", () => new
     status = "Sharp sharp!"
 }).RequireRateLimiting("ApiPolicy");
 
-app.MapGet("/phrase", (IPhraseService service) => Results.Ok((object?) service.GetRandom()))
+app.MapGet("/phrase", (IPhraseService service) => Results.Ok((object?)service.GetRandom()))
     .WithName("GetRandomPhrase")
     .WithSummary("Get a random South African phrase")
     .WithDescription("Returns a random South African slang term or expression. Sharp sharp!")
     .WithTags("Phrases")
     .RequireRateLimiting("ApiPolicy");
 
-app.MapGet("/phrase/dutch", (IPhraseService service) => Results.Ok((object?) service.GetRandomForDutch()))
+app.MapGet("/phrase/dutch", (IPhraseService service) => Results.Ok((object?)service.GetRandomForDutch()))
     .WithName("GetRandomDutchPhrase")
     .WithSummary("Get a random phrase explained for Dutchies")
     .WithDescription("Returns a random South African phrase with a playful Dutch explanation.")
@@ -98,7 +123,7 @@ app.MapGet("/phrase/{term}", (string term, IPhraseService service) =>
     .RequireRateLimiting("ApiPolicy");
 
 app.MapGet("/phrase/category/{category}",
-        (string category, IPhraseService service) => Results.Ok((object?) service.GetByCategory(category)))
+        (string category, IPhraseService service) => Results.Ok((object?)service.GetByCategory(category)))
     .WithName("GetPhrasesByCategory")
     .WithSummary("Get phrases filtered by category (slang, cultural, expression)")
     .WithTags("Phrases")
