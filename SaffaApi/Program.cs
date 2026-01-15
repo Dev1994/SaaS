@@ -2,6 +2,7 @@
 using SaffaApi.Services;
 using Scalar.AspNetCore;
 using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.HttpOverrides;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,14 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
+});
+
+// Configure forwarded headers for Cloudflare
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
 });
 
 builder.Services.AddHsts(options =>
@@ -72,6 +81,9 @@ builder.Services.AddRateLimiter(options =>
 });
 
 WebApplication app = builder.Build();
+
+// Use forwarded headers middleware for Cloudflare
+app.UseForwardedHeaders();
 
 if (!app.Environment.IsDevelopment())
 {
