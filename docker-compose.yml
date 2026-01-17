@@ -11,12 +11,25 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
+      - OpenTelemetry__ServiceName=SaffaApi
+      - OpenTelemetry__ServiceVersion=1.0.0
+      - OpenTelemetry__OtlpEndpoint=http://otel-collector:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_RESOURCE_ATTRIBUTES=service.name=SaffaApi,service.version=1.0.0
+      - OTEL_LOG_LEVEL=info
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     volumes:
       - ./SaffaApi/data:/app/data
     networks:
-      - saffa-network
+      - monitoring
     restart: always
 
 networks:
-  saffa-network:
-    driver: bridge
+  monitoring:
+    external: true

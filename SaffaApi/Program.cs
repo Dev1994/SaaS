@@ -1,88 +1,21 @@
-﻿using SaffaApi.Models;
+﻿using SaffaApi.Extensions;
+using SaffaApi.Models;
 using SaffaApi.Services;
-using Scalar.AspNetCore;
-using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.HttpOverrides;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-var phrasesFile = Path.Combine(builder.Environment.ContentRootPath, "data", "phrases.json");
+ var phrasesFile = Path.Combine(builder.Environment.ContentRootPath, "data", "phrases.json");
+ builder.Services.AddSingleton<IPhraseService>(provider => new PhraseService(phrasesFile));
 
-builder.Services.AddSingleton<IPhraseService>(provider => new PhraseService(phrasesFile));
+builder.Services.AddSaffaApi();
+builder.Services.AddSaffaCors();
+builder.Services.AddSaffaSecurity();
+builder.Services.AddSaffaRateLimiting();
+builder.Services.AddSaffaOpenTelemetry(builder.Configuration, builder.Environment);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi();
+var app = builder.Build();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-// Configure forwarded headers for Cloudflare
-builder.Services.Configure<ForwardedHeadersOptions>(options =>
-{
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-    options.KnownNetworks.Clear();
-    options.KnownProxies.Clear();
-});
-
-builder.Services.AddHsts(options =>
-{
-    options.Preload = true;
-    options.IncludeSubDomains = true;
-    options.MaxAge = TimeSpan.FromDays(60);
-});
-
-builder.Services.AddRateLimiter(options =>
-{
-    options.AddPolicy("ApiPolicy", context =>
-    {
-        var ipAddress = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-
-        return RateLimitPartition.Get($"minute_{ipAddress}", partition =>
-            new TokenBucketRateLimiter(new TokenBucketRateLimiterOptions
-            {
-                TokenLimit = 100,
-                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                QueueLimit = 10,
-                ReplenishmentPeriod = TimeSpan.FromMinutes(1),
-                TokensPerPeriod = 100,
-                AutoReplenishment = true
-            }));
-    });
-
-    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-    {
-        var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
-
-        return RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: $"hourly_{ipAddress}",
-            factory: partition => new FixedWindowRateLimiterOptions
-            {
-                PermitLimit = 500,
-                Window = TimeSpan.FromHours(1),
-                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-                QueueLimit = 5
-            });
-    });
-
-    options.OnRejected = async (context, token) =>
-    {
-        context.HttpContext.Response.StatusCode = 429;
-        await context.HttpContext.Response.WriteAsync(
-            "Eish! You're going too fast there, boet! Slow down a bit and try again later. 🐢",
-            cancellationToken: token);
-    };
-});
-
-WebApplication app = builder.Build();
-
-// Use forwarded headers middleware for Cloudflare
+app.UseSaffaTelemetryMiddleware();
 app.UseForwardedHeaders();
 
 if (!app.Environment.IsDevelopment())
@@ -92,17 +25,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAllOrigins");
-
 app.UseRateLimiter();
-
-app.MapOpenApi();
-
-app.MapScalarApiReference(options =>
-{
-    options
-        .WithTitle("Saffa – Saffa as a Service")
-        .WithTheme(ScalarTheme.Solarized);
-});
+app.UseSaffaApi();
 
 app.MapGet("/", () => new
 {
@@ -140,5 +64,7 @@ app.MapGet("/phrase/category/{category}",
     .WithSummary("Get phrases filtered by category (slang, cultural, expression)")
     .WithTags("Phrases")
     .RequireRateLimiting("ApiPolicy");
+
+app.MapHealthChecks("/health");
 
 app.Run();

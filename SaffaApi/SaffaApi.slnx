@@ -4,5 +4,6 @@
     <File Path="../docker-compose.yml" />
     <File Path="../README.md" />
   </Folder>
+  <Project Path="../AppHost/AppHost.csproj" Id="1d5a6f8d-b1e3-409a-87d4-e02bd4daaae6" />
   <Project Path="SaffaApi.csproj" />
 </Solution>
