@@ -241,5 +241,14 @@
     "explainLikeImDutch": "This is not 'zo meteen'. Do not wait.",
     "misunderstandingProbability": 0.97,
     "confidence": "High"
+  },
+  {
+    "text": "Ayoba",
+    "category": "slang",
+    "actualMeaning": "Excellent, impressive, or really good.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Means something is top-tier or really good — like 'top' or 'geweldig'.",
+    "misunderstandingProbability": 0.4,
+    "confidence": "High"
   }
 ]
