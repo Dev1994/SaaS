@@ -1,0 +1,62 @@
+# OpenTelemetry Collector Configuration
+# This file configures how the collector receives, processes, and exports telemetry data
+
+# ================================
+# RECEIVERS: How telemetry data enters the collector
+# ================================
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317  # Receive gRPC telemetry from applications
+      http:
+        endpoint: 0.0.0.0:4318  # Receive HTTP telemetry from applications
+
+# ================================  
+# PROCESSORS: How to process the telemetry data
+# ================================
+processors:
+  batch:
+    timeout: 1s              # Batch telemetry for efficient processing
+    send_batch_size: 512     # Send in batches of 512 items
+
+# ================================
+# EXPORTERS: Where to send the processed data
+# ================================
+exporters:
+  # Export metrics to Prometheus format
+  prometheus:
+    endpoint: "0.0.0.0:8889"      # Expose metrics for Prometheus to scrape
+    send_timestamps: true         # Include timestamps in metrics
+    metric_expiration: 180m       # Keep metrics for 3 hours
+    
+  # Debug exporter for troubleshooting  
+  debug:
+    verbosity: detailed           # Show detailed information in logs
+    sampling_initial: 2           # Log first 2 items for each type
+    sampling_thereafter: 500      # Then log every 500th item
+
+# ================================
+# SERVICE: Configure the processing pipelines
+# ================================
+service:
+  pipelines:
+    # TRACES: Distributed tracing data (request flows, timing)
+    traces:
+      receivers: [otlp]           # Receive from OTLP
+      processors: [batch]         # Batch for efficiency  
+      exporters: [debug]          # Export to debug logs
+    
+    # METRICS: Performance and usage data  
+    metrics:
+      receivers: [otlp]           # Receive from OTLP
+      processors: [batch]         # Batch for efficiency
+      exporters: [prometheus, debug]  # Export to Prometheus and debug logs
+  
+  # Collector's own telemetry configuration
+  telemetry:
+    logs:
+      level: debug               # Show debug information
+      development: true          # Enable development mode features
+    metrics:
+      level: detailed           # Collect detailed metrics about the collector itself

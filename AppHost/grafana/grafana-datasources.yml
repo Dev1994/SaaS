@@ -1,0 +1,13 @@
+# Grafana Datasources Configuration
+# This configures Grafana to connect to Prometheus as a data source
+
+apiVersion: 1
+
+datasources:
+  - name: Prometheus              # Display name in Grafana
+    type: prometheus              # Datasource type
+    access: proxy                # Access mode (proxy through Grafana server)
+    url: http://prometheus:9090   # Prometheus URL (container network)
+    uid: prometheus              # Unique identifier for dashboard references
+    isDefault: true              # Make this the default datasource
+    editable: true               # Allow editing in Grafana UI
