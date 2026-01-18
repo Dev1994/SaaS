@@ -4,7 +4,7 @@
     "category": "expression",
     "actualMeaning": "Oh man! Expresses pity, resignation, or irritation.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "This is not 'ach man' in Dutch; it’s more like 'oh jee, man'.",
+    "explainLikeImDutch": "Zoiets als 'oh jee, man!' in het Nederlands.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -13,7 +13,7 @@
     "category": "expression",
     "actualMeaning": "Used to express shock or disbelief.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'ikona'; more like 'nee joh!' or 'echt waar?'.",
+    "explainLikeImDutch": "Uitroep van verbazing, zoals 'nee joh!' of 'echt waar?'.",
     "misunderstandingProbability": 0.90,
     "confidence": "High"
   },
@@ -22,7 +22,7 @@
     "category": "slang",
     "actualMeaning": "A hangover; feeling rough after drinking.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'babbelaz'. It means you are hungover, not talking too much.",
+    "explainLikeImDutch": "Betekent dat je een kater hebt na het drinken.",
     "misunderstandingProbability": 0.95,
     "confidence": "High"
   },
@@ -31,7 +31,7 @@
     "category": "cultural",
     "actualMeaning": "Dried cured meat snack, iconic in South Africa.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not beef jerky. Softer, tastier, often spiced differently.",
+    "explainLikeImDutch": "Gedroogd en gekruid vlees, lijkt op beef jerky maar zachter en kruidiger.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -40,7 +40,7 @@
     "category": "cultural",
     "actualMeaning": "Spicy-sweet baked minced meat dish with egg custard topping.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Think 'gehakt ovenschotel', but uniquely South African.",
+    "explainLikeImDutch": "Een Zuid-Afrikaanse ovenschotel met gehakt en een eierlaagje.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -49,7 +49,7 @@
     "category": "slang",
     "actualMeaning": "Can mean to hit someone or used as an expression of surprise.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not lightning. More like 'poef!' or 'slaan!' depending on context.",
+    "explainLikeImDutch": "Kan slaan of verrassing betekenen, afhankelijk van de context.",
     "misunderstandingProbability": 0.90,
     "confidence": "High"
   },
@@ -58,7 +58,7 @@
     "category": "slang",
     "actualMeaning": "Friend, brother, or male buddy.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'boet' in Dutch; use it like 'maat' or 'bro'.",
+    "explainLikeImDutch": "Wordt gebruikt als 'maat' of 'bro' voor een vriend.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -67,7 +67,7 @@
     "category": "cultural",
     "actualMeaning": "Sausage often braaied; literally 'farmer’s sausage'.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not a hot dog. Unique spiced sausage, best at a braai.",
+    "explainLikeImDutch": "Een gekruide Zuid-Afrikaanse worst, vaak op de barbecue.",
     "misunderstandingProbability": 0.90,
     "confidence": "High"
   },
@@ -76,7 +76,7 @@
     "category": "slang",
     "actualMeaning": "Friend, buddy, pal.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'bra' like in English; say 'maat' or 'vriend'.",
+    "explainLikeImDutch": "Zeg je tegen een vriend, zoals 'maat' of 'vriend'.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -85,7 +85,7 @@
     "category": "cultural",
     "actualMeaning": "Barbecue / social gathering; more than just food.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not a 'barbecue' only; it’s an event with friends, drinks, and meat.",
+    "explainLikeImDutch": "Meer dan barbecueën; een sociale bijeenkomst met vlees en vrienden.",
     "misunderstandingProbability": 0.95,
     "confidence": "High"
   },
@@ -94,7 +94,7 @@
     "category": "expression",
     "actualMeaning": "Expression of sudden pain.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'pijn!' literally; used more like 'au!'",
+    "explainLikeImDutch": "Uitroep bij pijn, zoals 'au!'.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -103,7 +103,7 @@
     "category": "expression",
     "actualMeaning": "Used when surprised, shocked, or dismayed.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'eis'; like 'jeetje!' or 'wow!'.",
+    "explainLikeImDutch": "Uitroep van verbazing of schrik, zoals 'jeetje!' of 'wow!'.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -112,7 +112,7 @@
     "category": "slang",
     "actualMeaning": "An expert, teacher, or very knowledgeable person.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'fundi' in Dutch; more like 'expert' or 'kenner'.",
+    "explainLikeImDutch": "Iemand die ergens veel van weet, een expert.",
     "misunderstandingProbability": 0.70,
     "confidence": "High"
   },
@@ -121,7 +121,7 @@
     "category": "slang",
     "actualMeaning": "Fed up, had enough.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'gat vol' literally; it means 'ik ben er helemaal klaar mee!'.",
+    "explainLikeImDutch": "Betekent dat je er helemaal klaar mee bent.",
     "misunderstandingProbability": 0.90,
     "confidence": "High"
   },
@@ -130,7 +130,7 @@
     "category": "expression",
     "actualMeaning": "Used to indicate something unbelievable.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'hai bo'; more like 'nee joh!' or 'niet te geloven!'.",
+    "explainLikeImDutch": "Uitroep van ongeloof, zoals 'nee joh!' of 'niet te geloven!'.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -139,7 +139,7 @@
     "category": "expression",
     "actualMeaning": "Yes, but also no; agreement depending on context.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'ja nee' literally; context decides if it’s agreement or mild rejection.",
+    "explainLikeImDutch": "Kan 'ja' of 'nee' betekenen, afhankelijk van de context.",
     "misunderstandingProbability": 0.95,
     "confidence": "High"
   },
@@ -148,7 +148,7 @@
     "category": "expression",
     "actualMeaning": "Exclamation of shock or surprise.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not Dutch 'jislajik'; think 'jemig!'",
+    "explainLikeImDutch": "Uitroep van schrik of verbazing, zoals 'jemig!'.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -157,7 +157,7 @@
     "category": "slang",
     "actualMeaning": "To have fun, party, or enjoy oneself.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'jol' like in Dutch; it’s partying and fun, not a stroll.",
+    "explainLikeImDutch": "Betekent feesten of plezier maken.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -166,7 +166,7 @@
     "category": "slang",
     "actualMeaning": "Young person or small child.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'laaitje' exactly; just a kid or youngster.",
+    "explainLikeImDutch": "Wordt gebruikt voor een jongere of kind.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -175,7 +175,7 @@
     "category": "expression",
     "actualMeaning": "Shouted when a soccer team scores a goal.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'laduma' in Dutch; think 'goal!' shouted loudly.",
+    "explainLikeImDutch": "Wordt geroepen bij een doelpunt, zoals 'goal!'.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -184,7 +184,7 @@
     "category": "expression",
     "actualMeaning": "Good, nice, fun, or tasty — always positive.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not just 'lekker' in Dutch; can describe mood, food, or event.",
+    "explainLikeImDutch": "Betekent lekker, leuk of goed, altijd positief.",
     "misunderstandingProbability": 0.85,
     "confidence": "High"
   },
@@ -193,7 +193,7 @@
     "category": "cultural",
     "actualMeaning": "Travel food; food packed for a journey.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'padkos' literally; like 'proviand voor onderweg'.",
+    "explainLikeImDutch": "Eten dat je meeneemt voor onderweg.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -202,7 +202,7 @@
     "category": "cultural",
     "actualMeaning": "A sandwich.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "Not 'sarmie' in Dutch; just a casual sandwich.",
+    "explainLikeImDutch": "Een informele term voor een boterham of sandwich.",
     "misunderstandingProbability": 0.75,
     "confidence": "High"
   },
@@ -211,7 +211,7 @@
     "category": "cultural",
     "actualMeaning": "Large black-brown millipede.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not an insect you’d find in the Netherlands; it’s a millipede.",
+    "explainLikeImDutch": "Een grote duizendpoot uit Zuid-Afrika.",
     "misunderstandingProbability": 0.90,
     "confidence": "High"
   },
@@ -220,7 +220,7 @@
     "category": "expression",
     "actualMeaning": "I am because we are; shared humanity.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'ubuntu' like a computer; it’s a philosophy about humanity.",
+    "explainLikeImDutch": "Een filosofie over menselijkheid en samenleven.",
     "misunderstandingProbability": 0.80,
     "confidence": "High"
   },
@@ -229,7 +229,7 @@
     "category": "expression",
     "actualMeaning": "Yes! Strong affirmative.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Not 'ja'; very enthusiastic yes, often repeated.",
+    "explainLikeImDutch": "Een enthousiaste manier om 'ja' te zeggen.",
     "misunderstandingProbability": 0.60,
     "confidence": "High"
   },
@@ -238,7 +238,7 @@
     "category": "south-african",
     "actualMeaning": "Eventually. Not today energy.",
     "afrikaansInfluence": true,
-    "explainLikeImDutch": "This is not 'zo meteen'. Do not wait.",
+    "explainLikeImDutch": "Betekent niet direct, maar ooit. Wacht er niet op.",
     "misunderstandingProbability": 0.97,
     "confidence": "High"
   },
@@ -247,8 +247,71 @@
     "category": "slang",
     "actualMeaning": "Excellent, impressive, or really good.",
     "afrikaansInfluence": false,
-    "explainLikeImDutch": "Means something is top-tier or really good — like 'top' or 'geweldig'.",
+    "explainLikeImDutch": "Betekent dat iets heel goed of top is.",
     "misunderstandingProbability": 0.4,
+    "confidence": "High"
+  },
+  {
+    "text": "Kiff",
+    "category": "slang",
+    "actualMeaning": "Cool, awesome, or great.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Betekent dat iets heel gaaf of cool is.",
+    "misunderstandingProbability": 0.5,
+    "confidence": "High"
+  },
+  {
+    "text": "Mampoer",
+    "category": "cultural",
+    "actualMeaning": "Traditional South African fruit brandy.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een sterke Zuid-Afrikaanse vruchtenbrandewijn.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Tsotsi",
+    "category": "slang",
+    "actualMeaning": "A gangster or thug.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Betekent een crimineel of straatboef.",
+    "misunderstandingProbability": 0.8,
+    "confidence": "High"
+  },
+  {
+    "text": "Vuvuzela",
+    "category": "cultural",
+    "actualMeaning": "Plastic horn blown by fans at soccer matches.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een harde plastic toeter bij voetbalwedstrijden.",
+    "misunderstandingProbability": 0.7,
+    "confidence": "High"
+  },
+  {
+    "text": "Zol",
+    "category": "slang",
+    "actualMeaning": "A cannabis cigarette; joint.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een joint of cannabis-sigaret.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Dop",
+    "category": "slang",
+    "actualMeaning": "An alcoholic drink or to drink alcohol.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een alcoholisch drankje of een borrel drinken.",
+    "misunderstandingProbability": 0.8,
+    "confidence": "High"
+  },
+  {
+    "text": "Slet sappie",
+    "category": "slang",
+    "actualMeaning": "A very sweet, cheap alcoholic drink that tastes like juice but is deceptively strong.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een zoete mixdrank of alco-pop. Smaakt onschuldig, maar zorgt later voor spijt.",
+    "misunderstandingProbability": 0.6,
     "confidence": "High"
   }
 ]
