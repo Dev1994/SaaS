@@ -92,7 +92,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(rate(http_requests_total[1m]))",
+          "expr": "sum(rate(http_server_request_duration_seconds_count[1m]))",
           "legendFormat": "Total RPS",
           "refId": "A"
         }
@@ -157,7 +157,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[1m])) by (le)) * 1000",
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket[1m])) by (le)) * 1000",
           "legendFormat": "P95",
           "refId": "A"
         }
@@ -222,7 +222,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(rate(http_requests_total{status_code=~\"4..|5..\"}[1m])) / sum(rate(http_requests_total[1m])) * 100",
+          "expr": "sum(rate(http_server_request_duration_seconds_count{http_response_status_code=~\"4..|5..\"}[1m])) / sum(rate(http_server_request_duration_seconds_count[1m])) * 100",
           "legendFormat": "Error Rate",
           "refId": "A"
         }
@@ -287,7 +287,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(http_requests_total) - sum(http_requests_total offset 5m)",
+          "expr": "sum(increase(http_server_request_duration_seconds_count[5m]))",
           "legendFormat": "Active",
           "refId": "A"
         }
@@ -403,8 +403,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by(route) (rate(http_requests_total[1m]))",
-          "legendFormat": "{{route}}",
+          "expr": "sum by(http_route) (rate(http_server_request_duration_seconds_count[1m]))",
+          "legendFormat": "{{http_route}}",
           "refId": "A"
         }
       ],
@@ -467,8 +467,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by(status_code) (increase(http_requests_total[5m]))",
-          "legendFormat": "{{status_code}}",
+          "expr": "sum by(http_response_status_code) (increase(http_server_request_duration_seconds_count[5m]))",
+          "legendFormat": "{{http_response_status_code}}",
           "refId": "A"
         }
       ],
@@ -583,8 +583,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by(route) (http_requests_total)",
-          "legendFormat": "{{route}}",
+          "expr": "sum by(http_route) (http_server_request_duration_seconds_count)",
+          "legendFormat": "{{http_route}}",
           "refId": "A"
         }
       ],
@@ -673,7 +673,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[1m])) by (le)) * 1000",
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket[1m])) by (le)) * 1000",
           "legendFormat": "P95",
           "refId": "A"
         },
@@ -682,7 +682,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[1m])) by (le)) * 1000",
+          "expr": "histogram_quantile(0.50, sum(rate(http_server_request_duration_seconds_bucket[1m])) by (le)) * 1000",
           "legendFormat": "P50",
           "refId": "B"
         },
@@ -691,7 +691,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum(rate(http_request_duration_seconds_sum[1m])) / sum(rate(http_request_duration_seconds_count[1m])) * 1000",
+          "expr": "sum(rate(http_server_request_duration_seconds_sum[1m])) / sum(rate(http_server_request_duration_seconds_count[1m])) * 1000",
           "legendFormat": "Average",
           "refId": "C"
         }
@@ -871,8 +871,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "histogram_quantile(0.95, sum by(le, route) (rate(http_request_duration_seconds_bucket[1m])))",
-          "legendFormat": "P95 {{route}}",
+          "expr": "histogram_quantile(0.95, sum by(le, http_route) (rate(http_server_request_duration_seconds_bucket[1m])))",
+          "legendFormat": "P95 {{http_route}}",
           "refId": "A"
         }
       ],
@@ -886,7 +886,8 @@
     "opentelemetry",
     "dotnet",
     "api",
-    "demo"
+    "monitoring",
+    "prometheus"
   ],
   "templating": {
     "list": []
@@ -897,8 +898,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "🚀 .NET API Observability Dashboard - Production Ready",
+  "title": "📊 SaffaApi - Metrics Dashboard",
   "uid": "dotnet-api-observability",
-  "version": 6,
+  "version": 10,
   "weekStart": ""
 }

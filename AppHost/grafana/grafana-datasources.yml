@@ -1,5 +1,5 @@
 # Grafana Datasources Configuration
-# This configures Grafana to connect to Prometheus as a data source
+# This configures Grafana to connect to Prometheus and Jaeger as data sources
 
 apiVersion: 1
 
@@ -10,4 +10,11 @@ datasources:
     url: http://prometheus:9090   # Prometheus URL (container network)
     uid: prometheus              # Unique identifier for dashboard references
     isDefault: true              # Make this the default datasource
+    editable: true               # Allow editing in Grafana UI
+
+  - name: Jaeger                  # Display name in Grafana
+    type: jaeger                  # Datasource type for distributed tracing
+    access: proxy                # Access mode (proxy through Grafana server)
+    url: http://jaeger:16686      # Jaeger UI URL (container network)
+    uid: jaeger                  # Unique identifier for dashboard references
     editable: true               # Allow editing in Grafana UI

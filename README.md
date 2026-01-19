@@ -32,6 +32,7 @@ SaaS brings the **essence of South Africa** to your fingertips:
 * 🟨 Beautiful **Scalar UI** & OpenAPI docs
 * 🚦 **Smart rate limiting** with chained policies
 * ⚡ **Token bucket** algorithm for smooth request handling
+* 🔍 **Jaeger distributed tracing** for complete observability
 * 📊 **Full OpenTelemetry integration** for observability
 * 🏥 **Health checks** for monitoring
 * 🐳 **Docker & .NET Aspire ready**
@@ -106,6 +107,7 @@ dotnet run
 
 This starts the complete monitoring stack:
 - **API**: SaffaApi with full telemetry
+- **Jaeger**: Distributed tracing UI (http://localhost:16686)
 - **Metrics**: Prometheus (http://localhost:9090)
 - **Dashboards**: Grafana (http://localhost:3000, admin/admin)
 - **Telemetry**: OpenTelemetry Collector
@@ -160,13 +162,129 @@ Eish! You're going too fast there, boet! Slow down a bit and try again later. �
 
 ---
 
+## 🔍 Distributed Tracing with Jaeger
+
+SaaS includes comprehensive distributed tracing capabilities using Jaeger and OpenTelemetry.
+
+### **Architecture**
+
+The telemetry data flows through the following architecture:
+
+```mermaid
+graph TD
+    A[HTTP Request] --> B[ASP.NET Core App]
+    B --> C[OpenTelemetry]
+    C --> D[Jaeger<br/>Traces]
+    C --> E[OTLP<br/>Metrics]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#e8f5e8
+    style E fill:#fff8e1
+```
+
+- **Tracing**: Jaeger (distributed tracing and spans)
+- **Metrics**: OTLP (performance metrics and telemetry data)
+
+### **Quick Jaeger Setup**
+
+1. **Start the complete observability stack**
+   ```bash
+   cd SaaS/AppHost
+   dotnet run
+   ```
+
+2. **Access Jaeger UI**  
+   Open http://localhost:16686 in your browser to explore traces.
+
+3. **Access other services**
+   - **API**: Available through Aspire dashboard
+   - **Prometheus**: http://localhost:9090
+   - **Grafana**: http://localhost:3000 (admin/admin)
+
+### **What Gets Traced**
+
+The API automatically traces:
+
+#### **HTTP Requests**
+- Request method, path, and status codes
+- Client IP and User-Agent headers
+- Request/response timing and content length
+- Rate limiting enforcement status
+
+#### **PhraseService Operations**
+- Service initialization (loading phrases from JSON)
+- Random phrase retrieval with category tagging
+- Category-based phrase queries with result counts
+- Term-based phrase lookups with found/not-found status
+- Dutch phrase operations with availability checks
+
+#### **Custom Tags Added to Traces**
+- `saffa.request_id` - Unique request identifier for correlation
+- `saffa.operation` - Friendly operation name (e.g., `get_random_phrase`)
+- `saffa.success` - Whether the operation completed successfully
+- `phrase.category` - Category of returned phrases (slang, cultural, etc.)
+- `phrase.has_dutch_explanation` - Whether phrase includes Dutch explanation
+- `phrases.found_count` - Number of phrases found in category queries
+
+### **Configuration Options**
+
+#### **Environment Variables**
+```bash
+export JAEGER_ENDPOINT="http://localhost:14268/api/traces"
+export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4317"
+```
+
+#### **Configuration Settings**
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `OpenTelemetry:JaegerEndpoint` | `http://localhost:14268/api/traces` | Jaeger HTTP endpoint for traces |
+| `OpenTelemetry:OtlpEndpoint` | `http://localhost:4317` | OTLP gRPC endpoint for metrics |
+| `OpenTelemetry:ServiceName` | `SaffaApi` | Service name in traces |
+| `OpenTelemetry:ServiceVersion` | `1.0.0` | Service version in traces |
+
+### **Jaeger UI Features**
+
+In the Jaeger UI you can:
+- **Search traces** by service name (`SaffaApi`)
+- **Filter by operation** (e.g., `get_random_phrase`, `get_by_category`)
+- **View trace timelines** to identify performance bottlenecks
+- **Inspect tags** for detailed request information
+- **Compare traces** to understand request patterns and errors
+
+### **Troubleshooting Tracing**
+
+#### **Common Issues**
+1. **No traces appearing**: Check that Jaeger is running via Aspire
+2. **Connection errors**: Ensure Jaeger is accessible at `http://localhost:14268/api/traces`
+3. **Missing spans**: Verify that all ActivitySources are registered in OpenTelemetry configuration
+
+#### **Debug Logging**
+Enable OpenTelemetry debug logging:
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "OpenTelemetry": "Debug"
+    }
+  }
+}
+```
+
+#### **Stop Services**
+
+Stop the AppHost process (Ctrl+C) to stop all services including Jaeger.
+
+---
+
 ## 📊 Monitoring & Observability
 
-SaaS now includes comprehensive observability features:
+SaaS includes comprehensive observability features beyond tracing:
 
 ### **OpenTelemetry Integration**
-- **Traces**: Full request tracing across the API
-- **Metrics**: Performance counters and custom metrics
+- **Traces**: Full request tracing across the API with Jaeger
+- **Metrics**: Performance counters and custom metrics via OTLP
 - **Logs**: Structured logging with correlation IDs
 - **Standards**: OTLP protocol for vendor-neutral telemetry
 
@@ -178,8 +296,9 @@ SaaS now includes comprehensive observability features:
 ### **Metrics Dashboard**
 When running with .NET Aspire, you get:
 - **Prometheus**: Metrics collection and storage
-- **Grafana**: Pre-configured dashboards for API monitoring
+- **Grafana**: Pre-configured dashboards for API monitoring with enhanced observability dashboard as default
 - **Real-time Monitoring**: Request rates, error rates, response times
+- **Distributed Tracing**: Integrated Jaeger traces within Grafana dashboards
 
 ### **Production Deployment**
 - **Container Ready**: Optimized Docker configuration
@@ -251,18 +370,24 @@ SaaS/
 │   ├── Extensions/           # Extension methods for clean configuration
 │   │   ├── ApiExtensions.cs          # API configuration
 │   │   ├── CorsExtensions.cs         # CORS setup
-│   │   ├── OpenTelemetryExtensions.cs # Observability
+│   │   ├── OpenTelemetryExtensions.cs # Observability with Jaeger
 │   │   ├── RateLimitingExtensions.cs  # Rate limiting
 │   │   └── SecurityExtensions.cs     # Security headers
 │   ├── data/
 │   │   └── phrases.json      # Phrase data store
 │   └── Dockerfile            # Container configuration
 ├── AppHost/                  # .NET Aspire orchestration
-│   ├── AppHost.cs            # Aspire host configuration
+│   ├── AppHost.cs            # Aspire host configuration with Jaeger
 │   ├── prometheus/           # Prometheus configuration
 │   └── grafana/              # Grafana dashboards
 └── docker-compose.yml        # Container deployment
 ```
+
+**Main Components:**
+
+- **SaffaApi/**: Main API project with phrase services and OpenTelemetry integration
+- **AppHost/**: .NET Aspire orchestration with Jaeger, Prometheus, and Grafana  
+- **docker-compose.yml**: Container deployment configuration
 
 ---
 
@@ -279,7 +404,8 @@ SaaS/
 - **Built-in Rate Limiting** - Token bucket + fixed window algorithms
 
 ### **Observability Stack**
-- **OpenTelemetry** - Industry-standard telemetry
+- **Jaeger** - Distributed tracing and request flow visualization
+- **OpenTelemetry** - Industry-standard telemetry collection
 - **Prometheus** - Metrics collection and storage
 - **Grafana** - Visualization and dashboards
 - **Health Checks** - Service monitoring
@@ -306,6 +432,7 @@ The API includes production-ready Docker configuration:
 - `ASPNETCORE_ENVIRONMENT`: Runtime environment
 - `OpenTelemetry__*`: Telemetry configuration
 - `OTEL_*`: Standard OpenTelemetry variables
+- `JAEGER_ENDPOINT`: Jaeger tracing endpoint
 
 ---
 
@@ -318,6 +445,7 @@ We love contributions!
 * Improve the API 🚀
 * Enhance monitoring dashboards 📊
 * Add new observability features 🔍
+* Improve tracing and telemetry 📈
 
 Pull requests welcome — fork, fix, submit, **sharp sharp!**
 
@@ -334,6 +462,7 @@ MIT © Have fun with it! Just don't do anything too shady, hey?
 ![SaaS](https://img.shields.io/badge/SaaS-Yes-green)
 ![South Africa](https://img.shields.io/badge/Culture-SA-yellow)
 ![.NET 10](https://img.shields.io/badge/.NET-10-purple)
+![Jaeger Tracing](https://img.shields.io/badge/Jaeger-Enabled-blue)
 ![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-Enabled-orange)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue)
 ![Monitored](https://img.shields.io/badge/Monitoring-Full-green)
