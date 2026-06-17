@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSaffaApi();
 builder.Services.AddSaffaCors();
-builder.Services.AddSaffaSecurity();
+builder.Services.AddSaffaSecurity(builder.Configuration);
 builder.Services.AddSaffaRateLimiting();
 builder.Services.AddSaffaOpenTelemetry(builder.Configuration, builder.Environment);
 
