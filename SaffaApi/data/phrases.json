@@ -313,5 +313,896 @@
     "explainLikeImDutch": "Een zoete mixdrank of alco-pop. Smaakt onschuldig, maar zorgt later voor spijt.",
     "misunderstandingProbability": 0.6,
     "confidence": "High"
+  },
+  {
+    "text": "Voetsek",
+    "category": "slang",
+    "actualMeaning": "Go away! Shoo! Strong dismissal.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Niet beleefd! Zeg je om iemand (of iets) weg te sturen. Niet gebruiken tegen je baas.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Howzit",
+    "category": "south-african",
+    "actualMeaning": "How are you? Standard SA greeting.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Afkorting van 'how is it'. Betekent 'hoe gaat het' maar verwacht geen echt antwoord.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Sharp sharp",
+    "category": "south-african",
+    "actualMeaning": "Okay, cool, goodbye — all at once.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Kan 'oke', 'top', of 'doei' betekenen. Context bepaalt alles.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Now now",
+    "category": "south-african",
+    "actualMeaning": "Sooner than 'just now' but still vague. Minutes, maybe.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Iets sneller dan 'just now', maar nog steeds niet meteen. Plan niets.",
+    "misunderstandingProbability": 0.92,
+    "confidence": "High"
+  },
+  {
+    "text": "Robots",
+    "category": "south-african",
+    "actualMeaning": "Traffic lights.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Stoplichten. Niet de rijdende soort. 'Turn left at the robots' = sla links af bij het stoplicht.",
+    "misunderstandingProbability": 0.98,
+    "confidence": "High"
+  },
+  {
+    "text": "Pap",
+    "category": "cultural",
+    "actualMeaning": "Maize porridge; staple food, especially at a braai.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Maïspap, het Zuid-Afrikaanse basisvoedsel. Niet hetzelfde als Nederlandse pap — dikker en droger.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Shame",
+    "category": "expression",
+    "actualMeaning": "Expression of sympathy or endearment, not embarrassment.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "'Ag shame' betekent 'oh wat zielig' of 'wat schattig', niet 'schaam je'. Verwarrend voor iedereen.",
+    "misunderstandingProbability": 0.93,
+    "confidence": "High"
+  },
+  {
+    "text": "Chommie",
+    "category": "slang",
+    "actualMeaning": "Close friend.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Je beste vriend. Afgeleid van 'chum'. Warmer dan 'boet'.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Skinder",
+    "category": "slang",
+    "actualMeaning": "To gossip; or the gossip itself.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Roddelen of de roddels zelf. 'Wat is die skinder?' = 'Wat is het nieuws/de roddel?'",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Skelm",
+    "category": "slang",
+    "actualMeaning": "A sly, untrustworthy person; a crook.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een slinkse kerel of oplichter. In het Nederlands is 'schelm' speels; in SA is het serieuzer.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Nxa!",
+    "category": "expression",
+    "actualMeaning": "Sound of disgust or dismissal. Like a loud, sharp 'tsk'.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een klik-geluid van afkeer of irritatie. Niet echt een woord, maar iedereen begrijpt het.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Wena",
+    "category": "slang",
+    "actualMeaning": "'You' in Zulu — often used as an accusatory or emphatic point.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Zulu voor 'jij'. Klinkt confronterend maar hoeft het niet te zijn. 'Wena, kom hier' = 'Jij, kom hier'.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Yoh!",
+    "category": "expression",
+    "actualMeaning": "Exclamation of surprise, shock, or disbelief.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Uitroep van verbazing of schrik. Universeel begrepen in SA. Zeg maar 'jeetje!'.",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
+  },
+  {
+    "text": "Lekker sê",
+    "category": "expression",
+    "actualMeaning": "Well said! That's a good point. Expression of approval.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Betekent 'goed gezegd' of 'precies!'. Combineert 'lekker' met 'zeg' in Afrikaans.",
+    "misunderstandingProbability": 0.78,
+    "confidence": "High"
+  },
+  {
+    "text": "Yasis",
+    "category": "slang",
+    "actualMeaning": "Hype exclamation of excitement or agreement. Township slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Uitroep van enthousiasme of instemming. Denk aan 'yes!' maar dan luider en meer SA.",
+    "misunderstandingProbability": 0.82,
+    "confidence": "High"
+  },
+  {
+    "text": "Mchana",
+    "category": "slang",
+    "actualMeaning": "Friend, mate — township and street slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Straattaal voor vriend of maat. Afkomstig uit de townships. Vergelijkbaar met 'boet' maar meer urban.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Sies!",
+    "category": "expression",
+    "actualMeaning": "Expression of disgust. Gross!",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Uitroep van walging. Zeg je als iets vies of erg is. Klinkt als 'sis' in het Nederlands maar sterker.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Deurmekaar",
+    "category": "slang",
+    "actualMeaning": "Confused, disorganised, chaotic, or mentally jumbled.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Betekent door elkaar, maar ook verward of chaotisch. 'Hy is deurmekaar' = hij is in de war.",
+    "misunderstandingProbability": 0.55,
+    "confidence": "High"
+  },
+  {
+    "text": "Kwaito",
+    "category": "cultural",
+    "actualMeaning": "SA music genre blending house, hip-hop, and local languages. Born in Soweto in the 90s.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een Zuid-Afrikaans muziekgenre uit de townships. Combinatie van house en hiphop met lokale talen.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Toyi-toyi",
+    "category": "cultural",
+    "actualMeaning": "Protest dance/chant used during demonstrations and marches.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een protestdans waarbij je op je knieën stapt en scandeerd. Symbool van de anti-apartheidsstrijd.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Lapa",
+    "category": "cultural",
+    "actualMeaning": "Outdoor covered entertainment area, usually for braais.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een overdekte buitenruimte voor barbecues en gezelligheid. Geen Nederlandse equivalent — het is gewoon de lapa.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Cheeky",
+    "category": "expression",
+    "actualMeaning": "Disrespectful, rude, or boldly impertinent — used constantly in SA.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Betekent brutaal of vrijpostig. 'Don't be cheeky' = doe niet zo brutaal. Dagelijks gebruikt in SA.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Mos",
+    "category": "expression",
+    "actualMeaning": "Emphatic filler meaning 'you know' or 'obviously' — added mid-sentence.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Versterkend woordje, zoals 'toch' of 'gewoon'. 'You know mos' = je weet toch. Niet letterlijk vertalen.",
+    "misunderstandingProbability": 0.82,
+    "confidence": "High"
+  },
+  {
+    "text": "Nê",
+    "category": "expression",
+    "actualMeaning": "Tag question meaning 'right?', 'isn't it?', or 'agreed?' — appended to sentences.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Bevestigingsvraagje aan het einde van een zin, zoals 'toch?' of 'nietwaar?'. 'Lekker weather, nê?' = Mooi weer, toch?",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
+  },
+  {
+    "text": "China",
+    "category": "slang",
+    "actualMeaning": "Friend, mate — especially in Cape slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Straattaal voor vriend, niets met China te maken. 'My china' = mijn maat. Populair in Kaapstad.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Aweh",
+    "category": "slang",
+    "actualMeaning": "Cape Flats greeting meaning yes, okay, or hey — versatile affirmation.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Begroeting én bevestiging tegelijk. Kan 'hé', 'ja' of 'oke' betekenen. Typisch Kaaps.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Shap",
+    "category": "slang",
+    "actualMeaning": "Cool, okay, fine — a variant of 'sharp'.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Afkorting van 'sharp'. Betekent 'oke' of 'cool'. 'Shap shap' = alles is goed.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Lighty",
+    "category": "slang",
+    "actualMeaning": "A young person, youngster, or junior.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een jongeling of jonkje. Soms neerbuigend, soms gewoon beschrijvend.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Skollie",
+    "category": "slang",
+    "actualMeaning": "A gangster or street criminal — Cape slang.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een gangster of straatrover, met name in Kaapstad gebruikt.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Gogga",
+    "category": "slang",
+    "actualMeaning": "Bug, insect, or creepy crawly.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Elk soort insect of beestje. Kinderen en volwassenen gebruiken het.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Dof",
+    "category": "slang",
+    "actualMeaning": "Stupid, slow, or dim-witted.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Betekent dom of traag van begrip. In het Nederlands is 'dof' saai of mat; in SA ben je dof als je het niet snapt.",
+    "misunderstandingProbability": 0.72,
+    "confidence": "High"
+  },
+  {
+    "text": "Mampara",
+    "category": "slang",
+    "actualMeaning": "A fool, idiot, or incompetent person.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een sul of idioot. Wordt ook gebruikt in krantentitels voor politici die domme dingen doen.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Bakkie",
+    "category": "south-african",
+    "actualMeaning": "A pickup truck.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een pick-uptruck. In Nederland is een 'bakkie' een kopje koffie. In SA rijdt het op vier wielen.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Takkies",
+    "category": "south-african",
+    "actualMeaning": "Sneakers or trainers.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Sportschoenen of sneakers. 'Trek jou takkies aan' = doe je schoenen aan.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Braaibroodjie",
+    "category": "cultural",
+    "actualMeaning": "A toasted sandwich grilled over braai coals — a sacred SA tradition.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een tosti op de barbecue, meestal met kaas, tomaat en ui. Heilig op elke braai.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Slap chips",
+    "category": "cultural",
+    "actualMeaning": "Soft, thick, greasy chips/fries — beloved SA street food.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Dikke, zachte friet, vaak met azijn en zout. 'Slap' = zacht, niet een belediging.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Bunny chow",
+    "category": "cultural",
+    "actualMeaning": "A hollowed-out bread loaf filled with curry — Durban street food icon.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Geen konijnen, geen sla. Een uitgehold brood gevuld met curry. Durban street food klassieker.",
+    "misunderstandingProbability": 0.98,
+    "confidence": "High"
+  },
+  {
+    "text": "Dagga",
+    "category": "slang",
+    "actualMeaning": "Cannabis, marijuana.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Cannabis. Breed bekend in SA.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Mahala",
+    "category": "slang",
+    "actualMeaning": "Free of charge, gratis.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Gratis. Komt uit Zulu/Xhosa. 'Ek kry dit mahala' = ik krijg het gratis.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Amandla!",
+    "category": "expression",
+    "actualMeaning": "Power! Freedom cry used in political and cultural contexts.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Zulu voor 'macht'. Politieke vrijheidskreet uit de anti-apartheidsstrijd. Reactie is 'Awethu!' (aan ons).",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Hectic",
+    "category": "expression",
+    "actualMeaning": "Intense, extreme, overwhelming — used far more broadly than in other Englishes.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Kan 'druk', 'heftig', 'zwaar' of 'erg' betekenen. 'That's hectic' = dat is zwaar/erg.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Lank",
+    "category": "slang",
+    "actualMeaning": "Very, a lot — Cape slang intensifier.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Versterkend woord, betekent 'heel' of 'erg'. 'Lank lekker' = heel lekker. Typisch Kaaps.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Sommer",
+    "category": "expression",
+    "actualMeaning": "Just because, for no particular reason, spontaneously.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Zomaar, zonder reden. 'I did it sommer' = ik deed het gewoon, zomaar.",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
+  },
+  {
+    "text": "Ou / Oke",
+    "category": "slang",
+    "actualMeaning": "Guy, dude, bloke.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een kerel of vent. 'Daai ou' = die vent/gast. Neutraal, niet beledigend.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Spaza shop",
+    "category": "cultural",
+    "actualMeaning": "Informal convenience store operating from a home in a township.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een informele buurtwinkel vanuit een woning in de township. SA versie van een toko.",
+    "misunderstandingProbability": 0.92,
+    "confidence": "High"
+  },
+  {
+    "text": "Dwaal",
+    "category": "expression",
+    "actualMeaning": "In a daze, absent-minded wandering or confusion.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "In een roes of in de war. 'In 'n dwaal' = met je hoofd ergens anders.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Amasi",
+    "category": "cultural",
+    "actualMeaning": "Traditional fermented milk, similar to sour yogurt — Zulu staple.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Gefermenteerde melk, dikker dan karnemelk. Traditioneel Zoeloe voedsel, nu landelijk populair.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Shebeen",
+    "category": "cultural",
+    "actualMeaning": "Unlicensed bar or drinking spot in a township.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een illegale kroeg in de township. Tijdens apartheid verboden maar cultureel belangrijk.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Mzansi",
+    "category": "expression",
+    "actualMeaning": "Beloved informal name for South Africa.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Liefkozende naam voor Zuid-Afrika. Komt van 'umzantsi' (Xhosa voor 'zuiden'). Trots en identiteit.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Bakgat",
+    "category": "expression",
+    "actualMeaning": "Excellent, fantastic, top-notch.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Betekent geweldig of fantastisch. Enthousiaste goedkeuring. Letterlijk vreemd, figuurlijk top.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Potjiekos",
+    "category": "cultural",
+    "actualMeaning": "Traditional stew slow-cooked in a cast-iron pot over coals.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Stoofpot in een gietijzeren potje op houtskool. Uren koken, nooit roeren. SA traditie.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Droewors",
+    "category": "cultural",
+    "actualMeaning": "Dried sausage — like biltong but in sausage form.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gedroogde worst. Verwant aan biltong maar in worstform. Snack bij bier of sport.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Koeksister",
+    "category": "cultural",
+    "actualMeaning": "Deep-fried twisted dough soaked in cold syrup — sticky, sweet, iconic.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gefrituurd gevlochten deeg gedrenkt in koude suikersiroop. Zoet, plakkerig, heerlijk.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Melktert",
+    "category": "cultural",
+    "actualMeaning": "Milk tart — classic SA dessert with a creamy custard filling and cinnamon.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Taart met een romige melkvla-vulling en kaneel. SA klassieke toetjes.",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
+  },
+  {
+    "text": "Beskuit",
+    "category": "cultural",
+    "actualMeaning": "Hard dried rusks for dunking in coffee or tea — breakfast staple.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Harde beschuiten om in koffie of rooibos te dopen. Ontbijtklassieker. Niet opeten zonder dopen.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Kak",
+    "category": "slang",
+    "actualMeaning": "Bad, terrible, rubbish — mild profanity used very casually.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Slecht of bagger. 'Daai film was kak' = die film was slecht. Minder grof in SA dan in Nederland.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Swak",
+    "category": "slang",
+    "actualMeaning": "Weak, lame, poor quality, or disappointing.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Zwak of waardeloos. 'Daai's swak' = dat is slap/teleurstellend. Zelfde woord als in het Nederlands.",
+    "misunderstandingProbability": 0.50,
+    "confidence": "High"
+  },
+  {
+    "text": "Baie",
+    "category": "expression",
+    "actualMeaning": "Very, many, a lot — common Afrikaans word heard everywhere in SA.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Betekent 'veel' of 'erg'. 'Baie dankie' = hartelijk dank. Nederlanders snappen dit snel.",
+    "misunderstandingProbability": 0.40,
+    "confidence": "High"
+  },
+  {
+    "text": "Dankie",
+    "category": "expression",
+    "actualMeaning": "Thank you in Afrikaans — heard everywhere in SA.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Dank je wel in het Afrikaans. Nederlanders snappen het meteen. 'Baie dankie' = hartelijk dank.",
+    "misunderstandingProbability": 0.20,
+    "confidence": "High"
+  },
+  {
+    "text": "Totsiens",
+    "category": "expression",
+    "actualMeaning": "Goodbye in Afrikaans.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Tot ziens in het Afrikaans. Klinkt bijna identiek aan het Nederlands. Makkelijkste woord ooit.",
+    "misunderstandingProbability": 0.15,
+    "confidence": "High"
+  },
+  {
+    "text": "Gogo",
+    "category": "cultural",
+    "actualMeaning": "Grandmother, or respectful term for any elderly woman.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Oma of een oudere vrouw. Wordt met respect gebruikt. 'Die gogo' = de oma/oudere dame.",
+    "misunderstandingProbability": 0.70,
+    "confidence": "High"
+  },
+  {
+    "text": "Sisi",
+    "category": "slang",
+    "actualMeaning": "Sister, or a friendly address for any woman.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Zuster of vriendelijke aanspreekvorm voor vrouwen. Warme, vertrouwde toon.",
+    "misunderstandingProbability": 0.55,
+    "confidence": "High"
+  },
+  {
+    "text": "Vasbyt",
+    "category": "expression",
+    "actualMeaning": "Persevere, hang in there, bite through difficulty.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Letterlijk 'vastbijten'. Betekent doorzetten of volhouden. Motiverende kreet.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Lus",
+    "category": "slang",
+    "actualMeaning": "To crave or desire something — 'I'm lus for a braai'.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Zin hebben in iets. 'Ek is lus vir iets' = ik heb ergens zin in. Zelfde als het Nederlandse 'lust'.",
+    "misunderstandingProbability": 0.35,
+    "confidence": "High"
+  },
+  {
+    "text": "Sosatie",
+    "category": "cultural",
+    "actualMeaning": "SA-style kebab — marinated meat on a skewer, braaied over coals.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gekruide vleesblokjes aan een stokje op de barbecue. SA versie van satespiess.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Rooibos",
+    "category": "cultural",
+    "actualMeaning": "Red bush herbal tea — uniquely South African, now global.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Rooibosthee uit de Cedarberg. Nederlanders kennen het al, maar het is puur SA.",
+    "misunderstandingProbability": 0.30,
+    "confidence": "High"
+  },
+  {
+    "text": "Niks",
+    "category": "expression",
+    "actualMeaning": "Nothing — Afrikaans, identical to Dutch.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Niets. Exact hetzelfde als in het Nederlands. Geen verwarring mogelijk.",
+    "misunderstandingProbability": 0.10,
+    "confidence": "High"
+  },
+  {
+    "text": "Chow",
+    "category": "slang",
+    "actualMeaning": "Food, or to eat — widely used in SA slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Eten of voedsel. 'Let's chow' = laten we eten. Informeel en breed gebruikt.",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
+  },
+  {
+    "text": "Loskop",
+    "category": "slang",
+    "actualMeaning": "A scatterbrained or forgetful person — literally 'loose head'.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Iemand die verstrooid is of dingen vergeet. Letterlijk 'los hoofd'. Vriendelijk plaagwoord.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Donder",
+    "category": "slang",
+    "actualMeaning": "To beat someone up; also used as a strong expletive.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Iemand in elkaar slaan. Of als uitroep van frustratie. In Nederlands is 'donder' gewoon het weer.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Mlungu",
+    "category": "slang",
+    "actualMeaning": "White person — Zulu term, neutral but context-dependent.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Zulu voor een blanke persoon. Niet per se beledigend, maar context telt.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Indaba",
+    "category": "cultural",
+    "actualMeaning": "A meeting, conference, or community discussion — Zulu origin.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een vergadering of overleg. Zulu begrip voor gemeenschapsbijeenkomst. Nu ook zakelijk gebruikt.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Trek",
+    "category": "south-african",
+    "actualMeaning": "A long journey or migration; historically the Great Trek of Boer settlers.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een lange reis of volksverhuizing. De Groot Trek was een sleutelevent in SA geschiedenis. Zwaarder beladen dan in Nederland.",
+    "misunderstandingProbability": 0.55,
+    "confidence": "High"
+  },
+  {
+    "text": "Broer",
+    "category": "slang",
+    "actualMeaning": "Brother — used as a close address between male friends.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Broer in het Afrikaans. Wordt als 'bro' gebruikt voor vrienden. Nederlanders snappen het direct.",
+    "misunderstandingProbability": 0.30,
+    "confidence": "High"
+  },
+  {
+    "text": "Haai",
+    "category": "expression",
+    "actualMeaning": "Hey — casual greeting used across all SA languages.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gewoon 'hé' of 'hoi'. Universeel in SA. Klinkt precies als de Nederlandse versie.",
+    "misunderstandingProbability": 0.25,
+    "confidence": "High"
+  },
+  {
+    "text": "Moegoe",
+    "category": "slang",
+    "actualMeaning": "An idiot, fool, or clueless person.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een idioot of sul. Niet het ergste scheldwoord, maar zeker niet vleiend.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Naartjie",
+    "category": "south-african",
+    "actualMeaning": "A tangerine or mandarin orange — a uniquely SA term.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een mandarijn of clementine. SA woord dat nergens anders bestaat. Gewoon een mandarijn.",
+    "misunderstandingProbability": 0.92,
+    "confidence": "High"
+  },
+  {
+    "text": "Boep",
+    "category": "slang",
+    "actualMeaning": "A pot belly or beer belly.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een buikje of bierbuik. 'Hy het 'n groot boep' = hij heeft een grote buik.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Ja well no fine",
+    "category": "expression",
+    "actualMeaning": "Resigned acceptance of something frustrating or inevitable.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gelaten acceptatie van iets irritants. Zoals 'ja ja, wat kan je eraan doen'. SA versie van 'wat moet ik zeggen'.",
+    "misunderstandingProbability": 0.95,
+    "confidence": "High"
+  },
+  {
+    "text": "Hau!",
+    "category": "expression",
+    "actualMeaning": "Zulu exclamation of surprise or disbelief.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Zulu uitroep van verbazing. Zoals 'jeetje!' of 'wat?' Breed gebruikt in SA.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Phuza",
+    "category": "slang",
+    "actualMeaning": "To drink — Zulu, widely used in township slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Drinken in Zulu. 'Phuza Thursday' = cultuur van drinken op donderdagavond.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Tsek",
+    "category": "slang",
+    "actualMeaning": "Short, sharp form of voetsek — go away!",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Kortere versie van voetsek. Nog directer. Zeg je ook tegen honden. Niet beleefd.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Jozi",
+    "category": "south-african",
+    "actualMeaning": "Informal nickname for Johannesburg.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Bijnaam voor Johannesburg. Ook 'Joburg' of 'eGoli' (Zulu voor 'stad van goud').",
+    "misunderstandingProbability": 0.82,
+    "confidence": "High"
+  },
+  {
+    "text": "Bokke",
+    "category": "cultural",
+    "actualMeaning": "The Springboks — South Africa's beloved national rugby team.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Het nationale rugbyteam van Zuid-Afrika. Wanneer de Bokke spelen, staat het land stil.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Tjoek",
+    "category": "slang",
+    "actualMeaning": "Prison, jail.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Gevangenis. 'Hy sit in tjoek' = hij zit in de bak.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Skop",
+    "category": "slang",
+    "actualMeaning": "To kick; or a lively party.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Kan 'schoppen' betekenen of een feest. 'Skop, skiet en donner' = een wilde partij.",
+    "misunderstandingProbability": 0.78,
+    "confidence": "High"
+  },
+  {
+    "text": "Klap",
+    "category": "slang",
+    "actualMeaning": "A slap or smack — used very liberally in SA.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Een klap of mep. 'Ek gee jou 'n klap' = ik sla je. Zelfde als het Nederlandse 'klap'.",
+    "misunderstandingProbability": 0.30,
+    "confidence": "High"
+  },
+  {
+    "text": "Naai",
+    "category": "slang",
+    "actualMeaning": "To sew — but in street slang means to cheat, trick, or deceive someone.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Officieel 'naaien'. In straattaal betekent het bedonderen of belazeren. Pas op met context.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Bry",
+    "category": "expression",
+    "actualMeaning": "To speak with a heavy rolling Afrikaans accent.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Het rollende Afrikaanse accent. 'Hy bry baie' = hij heeft een zwaar Afrikaans accent.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Shame man",
+    "category": "expression",
+    "actualMeaning": "Intensified sympathy — 'that's really sad/unfortunate'.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Versterkte versie van 'shame'. 'Shame man' = ach wat zielig/triest. Geen schaamte. Medelijden.",
+    "misunderstandingProbability": 0.90,
+    "confidence": "High"
+  },
+  {
+    "text": "Chiskop",
+    "category": "slang",
+    "actualMeaning": "A shaved or bald head — Cape slang.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Een kaal of geschoren hoofd. 'Hy het 'n chiskop' = hij heeft een kaal hoofd.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Sus",
+    "category": "slang",
+    "actualMeaning": "Sister — casual Afrikaans address for a female friend.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Zus of meisje. Vriendelijke aanspreekvorm voor vrouwen. 'Hoe gaan dit, sus?' = hoe gaat het, zus?",
+    "misunderstandingProbability": 0.40,
+    "confidence": "High"
+  },
+  {
+    "text": "Gat",
+    "category": "slang",
+    "actualMeaning": "In trouble, caught out — literally 'hole' but slang for being in a bad spot.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Letterlijk 'gat' maar ook 'in de problemen'. 'Hy is in die gat' = hij zit in de nesten.",
+    "misunderstandingProbability": 0.75,
+    "confidence": "High"
+  },
+  {
+    "text": "Baba",
+    "category": "cultural",
+    "actualMeaning": "Father or dad in Zulu — also a respectful address for older men.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Vader in Zulu. Ook als respectvolle aanspreekvorm voor oudere mannen.",
+    "misunderstandingProbability": 0.60,
+    "confidence": "High"
+  },
+  {
+    "text": "Malume",
+    "category": "cultural",
+    "actualMeaning": "Uncle in Zulu and Xhosa — also used for any older male family friend.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Oom in Zulu/Xhosa. Gebruikt voor ooms maar ook voor vrienden van de familie.",
+    "misunderstandingProbability": 0.85,
+    "confidence": "High"
+  },
+  {
+    "text": "Mkhulu",
+    "category": "cultural",
+    "actualMeaning": "Grandfather in Zulu — also a respectful term for any wise elder.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Opa of grootvader in Zulu. Wordt ook gebruikt voor wijze oudere mannen.",
+    "misunderstandingProbability": 0.88,
+    "confidence": "High"
+  },
+  {
+    "text": "Lekgoa",
+    "category": "slang",
+    "actualMeaning": "White person — Sotho/Tswana term, neutral but context-dependent.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Sotho/Tswana woord voor een blanke persoon. Niet per se beledigend, maar toon telt.",
+    "misunderstandingProbability": 0.92,
+    "confidence": "High"
+  },
+  {
+    "text": "Sangoma",
+    "category": "cultural",
+    "actualMeaning": "Traditional healer and spiritual diviner — a respected cultural figure.",
+    "afrikaansInfluence": false,
+    "explainLikeImDutch": "Traditionele genezer en ziener. Een gerespecteerde figuur in Afrikaanse cultuur. Niet zomaar een kwakzalver.",
+    "misunderstandingProbability": 0.80,
+    "confidence": "High"
+  },
+  {
+    "text": "Veld",
+    "category": "cultural",
+    "actualMeaning": "Open grassland or countryside — the iconic SA landscape.",
+    "afrikaansInfluence": true,
+    "explainLikeImDutch": "Open grasland of platteland. In het Nederlands is 'veld' een voetbalveld; in SA is het een enorme vlakte.",
+    "misunderstandingProbability": 0.65,
+    "confidence": "High"
   }
 ]
