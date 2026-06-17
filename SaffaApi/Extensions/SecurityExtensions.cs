@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.HttpOverrides;
 using IPNetwork = System.Net.IPNetwork;
 
@@ -5,9 +6,11 @@ namespace SaffaApi.Extensions;
 
 public static class SecurityExtensions
 {
-    // Cloudflare published proxy ranges. Used as the default trust list when none is
-    // supplied via configuration. Source: https://www.cloudflare.com/ips/
-    private static readonly string[] CloudflareNetworks =
+    private const string CloudflareIpsApi = "https://api.cloudflare.com/client/v4/ips";
+
+    // Cloudflare published proxy ranges. Used as a fallback when the live list cannot
+    // be fetched and no ranges are configured. Source: https://www.cloudflare.com/ips/
+    private static readonly string[] CloudflareFallbackNetworks =
     [
         // IPv4
         "173.245.48.0/20",
@@ -37,12 +40,10 @@ public static class SecurityExtensions
 
     public static IServiceCollection AddSaffaSecurity(this IServiceCollection services, IConfiguration configuration)
     {
-        // Configure forwarded headers. Only trust X-Forwarded-* from known proxy networks
-        // (default: Cloudflare). Trusting all sources would let any client spoof
+        // Resolve the trusted upstream proxy CIDR ranges. Only X-Forwarded-* headers from
+        // these networks are honoured; trusting all sources would let any client spoof
         // X-Forwarded-For and bypass IP-based rate limiting / poison traces.
-        string[] trustedNetworks = configuration.GetSection("ForwardedHeaders:TrustedNetworks").Get<string[]>() is { Length: > 0 } configured
-            ? configured
-            : CloudflareNetworks;
+        string[] trustedNetworks = ResolveTrustedNetworks(configuration);
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {
@@ -74,5 +75,67 @@ public static class SecurityExtensions
         });
 
         return services;
+    }
+
+    private static string[] ResolveTrustedNetworks(IConfiguration configuration)
+    {
+        // 1. Explicit configuration always wins (operator override / non-Cloudflare upstreams).
+        if (configuration.GetSection("ForwardedHeaders:TrustedNetworks").Get<string[]>() is { Length: > 0 } configured)
+        {
+            return configured;
+        }
+
+        // 2. Try the live Cloudflare list so ranges stay current without a redeploy.
+        if (TryFetchCloudflareNetworks(out string[] live))
+        {
+            return live;
+        }
+
+        // 3. Fall back to the pinned ranges if the fetch fails (offline / API change).
+        Console.WriteLine("⚠️  Could not fetch Cloudflare IP list; using pinned fallback ranges.");
+        return CloudflareFallbackNetworks;
+    }
+
+    private static bool TryFetchCloudflareNetworks(out string[] networks)
+    {
+        networks = [];
+        try
+        {
+            using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+            string json = http.GetStringAsync(CloudflareIpsApi).GetAwaiter().GetResult();
+
+            using JsonDocument doc = JsonDocument.Parse(json);
+            if (!doc.RootElement.TryGetProperty("result", out JsonElement result))
+            {
+                return false;
+            }
+
+            List<string> cidrs = [];
+            foreach (string prop in new[] { "ipv4_cidrs", "ipv6_cidrs" })
+            {
+                if (result.TryGetProperty(prop, out JsonElement arr) && arr.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (JsonElement item in arr.EnumerateArray())
+                    {
+                        if (item.GetString() is { Length: > 0 } cidr)
+                        {
+                            cidrs.Add(cidr);
+                        }
+                    }
+                }
+            }
+
+            if (cidrs.Count == 0)
+            {
+                return false;
+            }
+
+            networks = [.. cidrs];
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
