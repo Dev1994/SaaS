@@ -8,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
  builder.Services.AddSingleton<IPhraseService>(provider => new PhraseService(phrasesFile));
 
 builder.Services.AddSaffaApi();
+builder.Services.AddHttpClient("cloudflare", client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
 builder.Services.AddSaffaCors();
 builder.Services.AddSaffaSecurity(builder.Configuration);
 builder.Services.AddSaffaRateLimiting();
