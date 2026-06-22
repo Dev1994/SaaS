@@ -103,4 +103,50 @@ public class PhraseServiceTests
 
         Assert.False(string.IsNullOrWhiteSpace(phrase.ExplainLikeImDutch));
     }
+
+    [Fact]
+    public void Constructor_throws_when_file_missing()
+    {
+        var path = Path.Combine(AppContext.BaseDirectory, "TestData", "does-not-exist.json");
+
+        Assert.Throws<FileNotFoundException>(() => new PhraseService(path));
+    }
+
+    [Fact]
+    public void GetRandom_on_empty_dataset_returns_blank_phrase()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"empty-{Guid.NewGuid():N}.json");
+        File.WriteAllText(path, "[]");
+        try
+        {
+            var service = new PhraseService(path);
+
+            var phrase = service.GetRandom();
+
+            Assert.Equal(string.Empty, phrase.Text);
+        }
+        finally
+        {
+            File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public void GetRandomForDutch_on_empty_dataset_returns_blank_phrase()
+    {
+        var path = Path.Combine(Path.GetTempPath(), $"empty-{Guid.NewGuid():N}.json");
+        File.WriteAllText(path, "[]");
+        try
+        {
+            var service = new PhraseService(path);
+
+            var phrase = service.GetRandomForDutch();
+
+            Assert.Equal(string.Empty, phrase.Text);
+        }
+        finally
+        {
+            File.Delete(path);
+        }
+    }
 }
