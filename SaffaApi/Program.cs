@@ -68,3 +68,5 @@ app.MapGet("/phrase/category/{category}",
 app.MapHealthChecks("/health");
 
 app.Run();
+
+public partial class Program { }
