@@ -1,0 +1,6 @@
+[
+  { "text": "Braai", "category": "cultural", "actualMeaning": "Barbecue gathering", "afrikaansInfluence": true, "explainLikeImDutch": "Not just a barbecue.", "misunderstandingProbability": 0.9, "confidence": "High" },
+  { "text": "Voetsek", "category": "slang", "actualMeaning": "Go away", "afrikaansInfluence": true, "explainLikeImDutch": "Not polite.", "misunderstandingProbability": 0.8, "confidence": "High" },
+  { "text": "Lekker", "category": "expression", "actualMeaning": "Nice, good", "afrikaansInfluence": true, "explainLikeImDutch": "Broader than Dutch lekker.", "misunderstandingProbability": 0.5, "confidence": "High" },
+  { "text": "Eish", "category": "slang", "actualMeaning": "Expression of dismay", "afrikaansInfluence": false, "explainLikeImDutch": "", "misunderstandingProbability": 0.3, "confidence": "High" }
+]

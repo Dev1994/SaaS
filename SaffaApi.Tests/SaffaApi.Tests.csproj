@@ -19,4 +19,10 @@
     <ProjectReference Include="../SaffaApi/SaffaApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="TestData\test-phrases.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
