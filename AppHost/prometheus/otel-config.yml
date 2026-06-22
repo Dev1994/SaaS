@@ -30,7 +30,14 @@ exporters:
     send_timestamps: true         # Include timestamps in metrics
     metric_expiration: 180m       # Keep metrics for 3 hours
     
-  # Debug exporter for troubleshooting  
+  # Forward traces to Jaeger via OTLP (Jaeger ingests OTLP natively when
+  # COLLECTOR_OTLP_ENABLED=true). Replaces the app's deprecated Jaeger exporter.
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+  # Debug exporter for troubleshooting
   debug:
     verbosity: detailed           # Show detailed information in logs
     sampling_initial: 2           # Log first 2 items for each type
@@ -44,8 +51,8 @@ service:
     # TRACES: Distributed tracing data (request flows, timing)
     traces:
       receivers: [otlp]           # Receive from OTLP
-      processors: [batch]         # Batch for efficiency  
-      exporters: [debug]          # Export to debug logs
+      processors: [batch]         # Batch for efficiency
+      exporters: [otlp/jaeger, debug]  # Forward to Jaeger + debug logs
     
     # METRICS: Performance and usage data  
     metrics:

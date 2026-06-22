@@ -14,14 +14,16 @@ public static class OpenTelemetryExtensions
         string otlpEndpoint = configuration["OpenTelemetry:OtlpEndpoint"] ??
                               Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ??
                               "http://localhost:4317";
-        
-        string jaegerEndpoint = configuration["OpenTelemetry:JaegerEndpoint"] ??
-                                Environment.GetEnvironmentVariable("JAEGER_ENDPOINT") ??
-                                "http://localhost:14268/api/traces";
+
+        // Traces are exported via OTLP. Jaeger ingests OTLP natively (gRPC 4317),
+        // so the deprecated Jaeger exporter is no longer required. Defaults to the
+        // shared OTLP endpoint unless a dedicated traces endpoint is configured.
+        string tracesEndpoint = configuration["OpenTelemetry:OtlpTracesEndpoint"] ??
+                                otlpEndpoint;
 
         Console.WriteLine($"🔍 OpenTelemetry Configuration:");
-        Console.WriteLine($"   - Jaeger Endpoint: {jaegerEndpoint}");
-        Console.WriteLine($"   - OTLP Endpoint (metrics only): {otlpEndpoint}");
+        Console.WriteLine($"   - OTLP Traces Endpoint: {tracesEndpoint}");
+        Console.WriteLine($"   - OTLP Metrics Endpoint: {otlpEndpoint}");
 
         // Create activity source and meters
         ActivitySource activitySource = new("SaffaApi.Activities");
@@ -46,7 +48,7 @@ public static class OpenTelemetryExtensions
                     ["service.instance.id"] = Environment.MachineName + "_" + Environment.ProcessId
                 }))
 
-            // 🔍 TRACING: Only using Jaeger for distributed tracing
+            // 🔍 TRACING: Export spans via OTLP (Jaeger ingests OTLP natively)
             .WithTracing(tracing =>
             {
                 tracing.AddAspNetCoreInstrumentation(options =>
@@ -66,12 +68,12 @@ public static class OpenTelemetryExtensions
                     .AddHttpClientInstrumentation()
                     .AddSource(activitySource.Name)
                     .AddSource("SaffaApi.PhraseService") // Add PhraseService activity source
-                    .AddJaegerExporter(jaegerOptions =>
+                    .AddOtlpExporter(otlpOptions =>
                     {
-                        Uri uri = new(jaegerEndpoint);
-                        jaegerOptions.Endpoint = uri;
-                        jaegerOptions.Protocol = JaegerExportProtocol.HttpBinaryThrift;
-                        Console.WriteLine($"🔍 Jaeger Tracing configured: {jaegerOptions.Endpoint}");
+                        otlpOptions.Endpoint = new Uri(tracesEndpoint);
+                        otlpOptions.Protocol = OtlpExportProtocol.Grpc;
+                        otlpOptions.TimeoutMilliseconds = 10000;
+                        Console.WriteLine($"🔍 OTLP Tracing configured: {otlpOptions.Endpoint}");
                     });
             })
 
