@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.0" />
+    <!-- Pin transitive MessagePack to a patched version (GHSA-hv8m-jj95-wg3x, high). -->
+    <PackageReference Include="MessagePack" Version="2.5.302" />
   </ItemGroup>
 
   <ItemGroup>
