@@ -232,17 +232,18 @@ The API automatically traces:
 
 #### **Environment Variables**
 ```bash
-export JAEGER_ENDPOINT="http://localhost:14268/api/traces"
 export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4317"
 ```
 
 #### **Configuration Settings**
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `OpenTelemetry:JaegerEndpoint` | `http://localhost:14268/api/traces` | Jaeger HTTP endpoint for traces |
-| `OpenTelemetry:OtlpEndpoint` | `http://localhost:4317` | OTLP gRPC endpoint for metrics |
+| `OpenTelemetry:OtlpEndpoint` | `http://localhost:4317` | OTLP gRPC endpoint for traces and metrics |
+| `OpenTelemetry:OtlpTracesEndpoint` | (falls back to `OtlpEndpoint`) | Optional dedicated OTLP endpoint for traces |
 | `OpenTelemetry:ServiceName` | `SaffaApi` | Service name in traces |
 | `OpenTelemetry:ServiceVersion` | `1.0.0` | Service version in traces |
+
+> Traces are exported via **OTLP**. The OpenTelemetry Collector forwards them to Jaeger (which ingests OTLP natively); the deprecated Jaeger exporter has been removed.
 
 ### **Jaeger UI Features**
 
@@ -257,7 +258,7 @@ In the Jaeger UI you can:
 
 #### **Common Issues**
 1. **No traces appearing**: Check that Jaeger is running via Aspire
-2. **Connection errors**: Ensure Jaeger is accessible at `http://localhost:14268/api/traces`
+2. **Connection errors**: Ensure the OTLP collector is reachable at `http://localhost:4317` and is configured to forward traces to Jaeger
 3. **Missing spans**: Verify that all ActivitySources are registered in OpenTelemetry configuration
 
 #### **Debug Logging**
@@ -431,8 +432,7 @@ The API includes production-ready Docker configuration:
 ### **Environment Variables**
 - `ASPNETCORE_ENVIRONMENT`: Runtime environment
 - `OpenTelemetry__*`: Telemetry configuration
-- `OTEL_*`: Standard OpenTelemetry variables
-- `JAEGER_ENDPOINT`: Jaeger tracing endpoint
+- `OTEL_*`: Standard OpenTelemetry variables (traces + metrics via OTLP)
 
 ---
 

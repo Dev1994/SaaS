@@ -42,11 +42,9 @@ var api = builder.AddProject<Projects.SaffaApi>("saffa-webapi")
     .WithEnvironment("OpenTelemetry:ServiceName", "SaffaApi")
     .WithEnvironment("OpenTelemetry:ServiceVersion", "1.0.0")
     .WithEnvironment("OpenTelemetry:OtlpEndpoint", "http://localhost:4317")
-    .WithEnvironment("OpenTelemetry:JaegerEndpoint", "http://localhost:14268/api/traces")
     .WithEnvironment("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4317")
     .WithEnvironment("OTEL_EXPORTER_OTLP_PROTOCOL", "grpc")
     .WithEnvironment("OTEL_RESOURCE_ATTRIBUTES", "service.name=SaffaApi,service.version=1.0.0")
-    .WithEnvironment("OTEL_LOG_LEVEL", "debug")
-    .WithEnvironment("JAEGER_ENDPOINT", "http://localhost:14268/api/traces");
+    .WithEnvironment("OTEL_LOG_LEVEL", "debug");
 
 builder.Build().Run();
