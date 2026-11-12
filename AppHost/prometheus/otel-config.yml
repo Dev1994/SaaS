@@ -30,8 +30,8 @@ exporters:
     send_timestamps: true         # Include timestamps in metrics
     metric_expiration: 180m       # Keep metrics for 3 hours
     
-  # Forward traces to Jaeger via OTLP (Jaeger ingests OTLP natively when
-  # COLLECTOR_OTLP_ENABLED=true). Replaces the app's deprecated Jaeger exporter.
+  # Forward traces to Jaeger via OTLP (Jaeger v2 ingests OTLP natively).
+  # Replaces the app's deprecated Jaeger exporter.
   otlp/jaeger:
     endpoint: jaeger:4317
     tls:
