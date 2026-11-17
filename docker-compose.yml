@@ -14,7 +14,7 @@ services:
       context: ./SaffaApi
       dockerfile: Dockerfile
     container_name: saffa-api
-    # No published ports: the Cloudflare tunnel (volkwyn-cloudflared-tunnel) reaches the API as
+    # No published ports: the Cloudflare tunnel (cloudflared container) reaches the API as
     # http://saffa-api:8080 over the shared cloudflared network, so it is not exposed on the LAN.
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
@@ -44,7 +44,7 @@ networks:
   monitoring:
     external: true
     name: docker-raspberry-pi-monitoring_monitoring
-  # Created by the cloudflared compose project; volkwyn-cloudflared-tunnel serves saas.volkwyn.nl from it.
+  # Created by the cloudflared compose project; the tunnel container serving this API runs on it.
   # The app trusts X-Forwarded-For from Docker networks (172.16.0.0/12, see
   # ForwardedHeaders:LocalProxyNetworks), which is why it must not publish a port: LAN clients
   # would then arrive from the bridge gateway and could forge their IP.
