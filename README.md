@@ -89,10 +89,22 @@ HTTPS: https://localhost:7023
 
 ### Option 2: Docker Deployment
 
+The compose file is the production setup: it joins two external networks (the monitoring stack's
+`docker-raspberry-pi-monitoring_monitoring` and the tunnel's `cloudflared_default`) and publishes no ports.
+To run it on your own machine, create the networks and publish the port with an override file
+(`docker-compose.override.yml` is git-ignored and picked up automatically):
+
 ```bash
 git clone https://github.com/Dev1994/SaaS.git
 cd SaaS
-docker-compose up -d
+docker network create docker-raspberry-pi-monitoring_monitoring
+docker network create cloudflared_default
+printf 'services:
+  saffaapi:
+    ports:
+      - "8083:8080"
+' > docker-compose.override.yml
+docker compose up -d
 ```
 
 API will be available at: http://localhost:8083

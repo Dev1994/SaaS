@@ -1,22 +1,30 @@
+# Rotate container logs so they cannot fill the Pi's disk (default json-file driver grows forever).
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
-  # SaffaApi - connects to external observability services
+  # SaffaApi - exports traces, metrics and logs to the shared OTel collector
+  # (Docker-Raspberry-PI-Monitoring) over the monitoring network.
   saffaapi:
+    logging: *default-logging
     build:
       context: ./SaffaApi
       dockerfile: Dockerfile
     container_name: saffa-api
-    ports:
-      - "8083:8080"
+    # No published ports: the Cloudflare tunnel (volkwyn-cloudflared-tunnel) reaches the API as
+    # http://saffa-api:8080 over the shared cloudflared network, so it is not exposed on the LAN.
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
+      # service.name / service.version resource attributes (read by AddSaffaOpenTelemetry).
       - OpenTelemetry__ServiceName=SaffaApi
       - OpenTelemetry__ServiceVersion=1.0.0
-      - OpenTelemetry__OtlpEndpoint=http://otel-collector:4317
+      # Telemetry is only exported when this is set.
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-      - OTEL_RESOURCE_ATTRIBUTES=service.name=SaffaApi,service.version=1.0.0
-      - OTEL_LOG_LEVEL=info
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
       interval: 30s
@@ -27,8 +35,16 @@ services:
       - ./SaffaApi/data:/app/data
     networks:
       - monitoring
+      - tunnel
     restart: unless-stopped
 
 networks:
+  # Created by the Docker-Raspberry-PI-Monitoring compose project (its `monitoring` network),
+  # where the collector is reachable as otel-collector:4317.
   monitoring:
     external: true
+    name: docker-raspberry-pi-monitoring_monitoring
+  # Created by the cloudflared compose project; volkwyn-cloudflared-tunnel serves saas.volkwyn.nl from it.
+  tunnel:
+    external: true
+    name: cloudflared_default
