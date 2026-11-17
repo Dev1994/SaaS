@@ -19,6 +19,7 @@ builder.Services.AddSaffaOpenTelemetry(builder.Configuration, builder.Environmen
 
 var app = builder.Build();
 
+app.UseSaffaRequestId();
 app.UseForwardedHeaders();
 
 if (!app.Environment.IsDevelopment())

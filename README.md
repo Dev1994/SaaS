@@ -233,9 +233,9 @@ The API automatically traces:
 - Dutch phrase operations with availability checks
 
 #### **Custom Tags Added to Traces**
-- `saffa.request_id` - Unique request identifier for correlation
+- `saffa.request_id` - Request ID, also returned to callers in the `X-Request-Id` response header (search Tempo with `{ span.saffa.request_id = "..." }`)
 - `saffa.operation` - Friendly operation name (e.g., `get_random_phrase`)
-- `saffa.success` - Whether the operation completed successfully
+- `saffa.success` - `true` when the response status is below 400
 - `phrase.category` - Category of returned phrases (slang, cultural, etc.)
 - `phrase.has_dutch_explanation` - Whether phrase includes Dutch explanation
 - `phrases.found_count` - Number of phrases found in category queries
@@ -250,12 +250,12 @@ export OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4317"
 #### **Configuration Settings**
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `OpenTelemetry:OtlpEndpoint` | `http://localhost:4317` | OTLP gRPC endpoint for traces and metrics |
-| `OpenTelemetry:OtlpTracesEndpoint` | (falls back to `OtlpEndpoint`) | Optional dedicated OTLP endpoint for traces |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | (unset) | OTLP endpoint for traces, metrics and logs. Nothing is exported when it is unset |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | `grpc` | OTLP protocol |
 | `OpenTelemetry:ServiceName` | `SaffaApi` | Service name in traces |
 | `OpenTelemetry:ServiceVersion` | `1.0.0` | Service version in traces |
 
-> Traces are exported via **OTLP**. The OpenTelemetry Collector forwards them to Jaeger (which ingests OTLP natively); the deprecated Jaeger exporter has been removed.
+> Traces, metrics and logs are exported via **OTLP**. Locally the Aspire collector forwards traces to Jaeger. In production the shared collector (Docker-Raspberry-PI-Monitoring) sends metrics to Prometheus, traces to Tempo and logs to Loki; the `SaffaApi` Grafana dashboard reads them.
 
 ### **Jaeger UI Features**
 

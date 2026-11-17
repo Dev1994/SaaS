@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Trace;
 using SaffaApi.Extensions;
+using SaffaApi.Services;
 using Xunit;
 
 namespace SaffaApi.Tests;
@@ -41,7 +42,7 @@ public class TelemetryTests
         HttpClient client = factory.CreateClient();
         client.DefaultRequestHeaders.UserAgent.ParseAdd(marker);
         await client.GetAsync("/health");
-        await client.GetAsync("/phrase/this-term-does-not-exist");
+        HttpResponseMessage byTermResponse = await client.GetAsync("/phrase/this-term-does-not-exist");
         await client.GetAsync("/no/such/route");
 
         // The provider exports on Activity stop; dispose to flush the simple processor.
@@ -54,13 +55,20 @@ public class TelemetryTests
         Activity byTerm = Assert.Single(serverSpans, a => a.GetTagItem("http.route") as string == "/phrase/{term}");
         Assert.Equal("get_phrase_by_term", byTerm.GetTagItem("saffa.operation"));
         Assert.Equal(false, byTerm.GetTagItem("saffa.success"));
-        Assert.True(Guid.TryParse(byTerm.GetTagItem("saffa.request_id") as string, out _));
+        // The ID returned to the caller is the one on the span, so a quoted ID finds the trace.
+        string requestId = Assert.Single(byTermResponse.Headers.GetValues(OpenTelemetryExtensions.RequestIdHeader));
+        Assert.False(string.IsNullOrWhiteSpace(requestId));
+        Assert.Equal(requestId, byTerm.GetTagItem("saffa.request_id"));
 
         Activity unmatched = Assert.Single(serverSpans, a => a.GetTagItem("url.path") as string == "/no/such/route");
         Assert.Equal("unknown_operation", unmatched.GetTagItem("saffa.operation"));
 
-        // Only the framework server span per request: no duplicate middleware span.
+        // One server span per request, and no second request-level span alongside it: the only
+        // other spans in these traces are PhraseService operations.
         Assert.Equal(2, serverSpans.Count);
-        Assert.DoesNotContain(exported, a => a.Source.Name == "SaffaApi.Activities");
+        HashSet<ActivityTraceId> traceIds = serverSpans.Select(a => a.TraceId).ToHashSet();
+        Assert.All(
+            exported.Where(a => traceIds.Contains(a.TraceId) && a.Kind != ActivityKind.Server),
+            a => Assert.Equal(PhraseService.ActivitySourceName, a.Source.Name));
     }
 }

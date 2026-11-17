@@ -10,7 +10,9 @@ public static class CorsExtensions
             {
                 policy.AllowAnyOrigin()
                       .AllowAnyHeader()
-                      .AllowAnyMethod();
+                      .AllowAnyMethod()
+                      // Let browser clients read the request ID to quote it in bug reports.
+                      .WithExposedHeaders(OpenTelemetryExtensions.RequestIdHeader);
             });
         });
 

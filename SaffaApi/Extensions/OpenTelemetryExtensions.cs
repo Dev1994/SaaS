@@ -36,8 +36,10 @@ public static class OpenTelemetryExtensions
                 {
                     options.Filter = context => !context.Request.Path.StartsWithSegments(HealthPath);
                     options.RecordException = true;
-                    // Runs when the request ends: routing has picked the endpoint and
-                    // UseForwardedHeaders has replaced the proxy address with the real client IP.
+                    // Runs when the request ends, so routing has picked the endpoint and
+                    // UseForwardedHeaders has run. The client IP is the real one only when the
+                    // tunnel hop is a trusted proxy (ForwardedHeaders config); otherwise it is the
+                    // tunnel container's address.
                     options.EnrichWithHttpResponse = (activity, response) => EnrichServerSpan(activity, response.HttpContext);
                 })
                 .AddHttpClientInstrumentation()
@@ -61,10 +63,24 @@ public static class OpenTelemetryExtensions
         return services;
     }
 
+    public const string RequestIdHeader = "X-Request-Id";
+
+    /// <summary>
+    ///     Returns the request ID (<see cref="HttpContext.TraceIdentifier" />, also the RequestId log scope)
+    ///     in an <c>X-Request-Id</c> response header, so a caller can quote it and the matching trace
+    ///     can be found in Tempo with <c>{ span.saffa.request_id = "..." }</c>.
+    /// </summary>
+    public static IApplicationBuilder UseSaffaRequestId(this IApplicationBuilder app) =>
+        app.Use((context, next) =>
+        {
+            context.Response.Headers[RequestIdHeader] = context.TraceIdentifier;
+            return next(context);
+        });
+
     /// <summary>
     ///     Adds the SaffaApi attributes to the ASP.NET Core server span:
     ///     <c>saffa.operation</c> (stable name per endpoint), <c>saffa.success</c> (status below 400)
-    ///     and <c>saffa.request_id</c> (unique per request, searchable in Tempo).
+    ///     and <c>saffa.request_id</c> (the ID returned in the <c>X-Request-Id</c> header).
     /// </summary>
     internal static void EnrichServerSpan(Activity activity, HttpContext context)
     {
@@ -72,7 +88,7 @@ public static class OpenTelemetryExtensions
 
         activity.SetTag("saffa.operation", GetOperationName(routePattern));
         activity.SetTag("saffa.success", context.Response.StatusCode < 400);
-        activity.SetTag("saffa.request_id", Guid.NewGuid().ToString());
+        activity.SetTag("saffa.request_id", context.TraceIdentifier);
         activity.SetTag("http.client_ip", context.Connection.RemoteIpAddress?.ToString());
         activity.SetTag("http.response_content_length", context.Response.ContentLength);
     }
