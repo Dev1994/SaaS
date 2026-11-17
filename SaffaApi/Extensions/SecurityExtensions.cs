@@ -37,6 +37,34 @@ public static class SecurityExtensions
         "2c0f:f248::/32",
     ];
 
+    // Hops between Cloudflare and the app. With a cloudflared tunnel the TCP peer is never a
+    // Cloudflare IP: in production it is the tunnel container on the shared cloudflared Docker
+    // network (172.16.0.0/12), or loopback when the tunnel runs on the host.
+    // Trust boundary: every container on a Docker bridge network on the host can set
+    // X-Forwarded-For. Narrow this with ForwardedHeaders:LocalProxyNetworks (e.g. the tunnel
+    // network's subnet) if untrusted containers share the host. Never publish the app's port
+    // through docker-proxy with this default: LAN clients would arrive from the bridge gateway.
+    private static readonly string[] DefaultLocalProxyCidrs =
+    [
+        "127.0.0.0/8",
+        "::1/128",
+        "172.16.0.0/12",
+    ];
+
+    // Fails at startup on a bad entry: silently dropping it would quietly stop trusting the proxy.
+    private static List<IPNetwork> ParseNetworks(IEnumerable<string> cidrs, string configKey)
+    {
+        List<IPNetwork> networks = [];
+        foreach (string cidr in cidrs)
+        {
+            if (!IPNetwork.TryParse(cidr, out IPNetwork network))
+                throw new InvalidOperationException(
+                    $"{configKey} contains '{cidr}', which is not a valid CIDR network (e.g. 172.18.0.0/16).");
+            networks.Add(network);
+        }
+        return networks;
+    }
+
     public static IServiceCollection AddSaffaSecurity(this IServiceCollection services, IConfiguration configuration)
     {
         string[]? configuredRanges = configuration
@@ -46,19 +74,30 @@ public static class SecurityExtensions
         bool hasConfigOverride = configuredRanges is { Length: > 0 };
         string[] seedRanges = hasConfigOverride ? configuredRanges! : CloudflareFallbackCidrs;
 
+        string[]? configuredLocal = configuration
+            .GetSection("ForwardedHeaders:LocalProxyNetworks")
+            .Get<string[]>();
+        string[] localRanges = configuredLocal is { Length: > 0 } ? configuredLocal : DefaultLocalProxyCidrs;
+        List<IPNetwork> localNetworks = ParseNetworks(localRanges, "ForwardedHeaders:LocalProxyNetworks");
+        List<IPNetwork> seedNetworks = ParseNetworks(seedRanges, "ForwardedHeaders:TrustedNetworks");
+
+        // Local hops (e.g. a cloudflared tunnel container) are always trusted and survive
+        // CloudflareIpService refreshes.
+        services.AddSingleton(new TrustedProxyNetworks(localNetworks));
+
         services.Configure<ForwardedHeadersOptions>(options =>
         {
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            options.ForwardLimit = 2; // Cloudflare edge → load balancer
+            // Only the right-most X-Forwarded-For entry: the one Cloudflare's edge appends. Anything
+            // left of it came from the visitor. A higher limit would let a visitor whose own IP is in
+            // a Cloudflare range (e.g. a Worker) make the next, forged entry count as the client.
+            options.ForwardLimit = 1;
 
             options.KnownIPNetworks.Clear();
             options.KnownProxies.Clear();
 
-            foreach (string cidr in seedRanges)
-            {
-                if (IPNetwork.TryParse(cidr, out IPNetwork network))
-                    options.KnownIPNetworks.Add(network);
-            }
+            foreach (IPNetwork network in seedNetworks.Concat(localNetworks).Distinct())
+                options.KnownIPNetworks.Add(network);
         });
 
         // If ranges come from config, they're static — no need to refresh from Cloudflare's API.
