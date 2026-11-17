@@ -9,6 +9,7 @@ namespace SaffaApi.Services;
 public sealed class CloudflareIpService(
     IOptions<ForwardedHeadersOptions> forwardedHeadersOptions,
     IHttpClientFactory httpClientFactory,
+    TrustedProxyNetworks trustedProxyNetworks,
     ILogger<CloudflareIpService> logger) : IHostedService, IDisposable
 {
     private const string CloudflareIpsApi = "https://api.cloudflare.com/client/v4/ips";
@@ -71,13 +72,16 @@ public sealed class CloudflareIpService(
             // collection. We minimise the mutation window by adding new ranges before removing
             // stale ones, so there is never an empty-list gap that would reject all requests.
             // At a 24-hour refresh cadence the overlap with a live request is negligible.
-            foreach (IPNetwork network in ranges)
+            // Local proxy networks are pinned so a refresh never drops the tunnel hop.
+            List<IPNetwork> desired = ranges.Concat(trustedProxyNetworks.Networks).Distinct().ToList();
+
+            foreach (IPNetwork network in desired)
             {
                 if (!_options.KnownIPNetworks.Contains(network))
                     _options.KnownIPNetworks.Add(network);
             }
 
-            List<IPNetwork> stale = _options.KnownIPNetworks.Except(ranges).ToList();
+            List<IPNetwork> stale = _options.KnownIPNetworks.Except(desired).ToList();
             foreach (IPNetwork network in stale)
                 _options.KnownIPNetworks.Remove(network);
         }

@@ -45,6 +45,9 @@ networks:
     external: true
     name: docker-raspberry-pi-monitoring_monitoring
   # Created by the cloudflared compose project; volkwyn-cloudflared-tunnel serves saas.volkwyn.nl from it.
+  # The app trusts X-Forwarded-For from Docker networks (172.16.0.0/12, see
+  # ForwardedHeaders:LocalProxyNetworks), which is why it must not publish a port: LAN clients
+  # would then arrive from the bridge gateway and could forge their IP.
   tunnel:
     external: true
     name: cloudflared_default
