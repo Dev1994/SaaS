@@ -45,7 +45,7 @@ public class ForwardedHeadersTests : IClassFixture<WebApplicationFactory<Program
     {
         var options = _factory.Services.GetRequiredService<IOptions<ForwardedHeadersOptions>>().Value;
 
-        Assert.Contains(options.KnownIPNetworks, n => n.Contains(IPAddress.Parse("172.18.0.2")));
+        Assert.Contains(options.KnownIPNetworks, n => n.Contains(IPAddress.Parse("172.20.0.2")));
         Assert.Contains(options.KnownIPNetworks, n => n.Contains(IPAddress.Loopback));
         Assert.Contains(options.KnownIPNetworks, n => n.Contains(IPAddress.Parse("104.16.0.1")));
     }
