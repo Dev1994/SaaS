@@ -1,190 +1,99 @@
-﻿using OpenTelemetry.Metrics;
+﻿using System.Diagnostics;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using OpenTelemetry.Exporter;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
+using SaffaApi.Services;
 
 namespace SaffaApi.Extensions;
 
 public static class OpenTelemetryExtensions
 {
-    public static IServiceCollection AddSaffaOpenTelemetry(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+    // Container healthchecks hit this every 30s; keep them out of the trace store.
+    private const string HealthPath = "/health";
+
+    /// <summary>
+    ///     Traces, metrics and logs exported over OTLP.
+    ///     Dev: Aspire (AppHost) injects OTEL_EXPORTER_OTLP_ENDPOINT.
+    ///     Prod: OTEL_EXPORTER_OTLP_ENDPOINT points at the self-hosted collector
+    ///     (Docker-Raspberry-PI-Monitoring), which forwards metrics to Prometheus and traces to Tempo.
+    ///     Without the variable nothing is exported (tests, plain <c>dotnet run</c>).
+    /// </summary>
+    public static IServiceCollection AddSaffaOpenTelemetry(this IServiceCollection services,
+        IConfiguration configuration, IWebHostEnvironment environment)
     {
-        string otlpEndpoint = configuration["OpenTelemetry:OtlpEndpoint"] ??
-                              Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ??
-                              "http://localhost:4317";
-
-        // Traces are exported via OTLP. Jaeger ingests OTLP natively (gRPC 4317),
-        // so the deprecated Jaeger exporter is no longer required. Defaults to the
-        // shared OTLP endpoint unless a dedicated traces endpoint is configured.
-        string tracesEndpoint = configuration["OpenTelemetry:OtlpTracesEndpoint"] ??
-                                otlpEndpoint;
-
-        Console.WriteLine($"🔍 OpenTelemetry Configuration:");
-        Console.WriteLine($"   - OTLP Traces Endpoint: {tracesEndpoint}");
-        Console.WriteLine($"   - OTLP Metrics Endpoint: {otlpEndpoint}");
-
-        // Create activity source and meters
-        ActivitySource activitySource = new("SaffaApi.Activities");
-        Meter customMeter = new("SaffaApi.Metrics");
-        Counter<long> requestCounter = customMeter.CreateCounter<long>(
-            name: "http_requests_total",
-            description: "Total number of HTTP requests by route and status");
-
-        Histogram<double> requestDuration = customMeter.CreateHistogram<double>(
-            name: "http_request_duration_seconds",
-            description: "Duration of HTTP requests by route");
-
-        services.AddOpenTelemetry()
+        OpenTelemetryBuilder otelBuilder = services
+            .AddOpenTelemetry()
             .ConfigureResource(resource => resource
                 .AddService(
                     serviceName: configuration["OpenTelemetry:ServiceName"] ?? "SaffaApi",
-                    serviceVersion: configuration["OpenTelemetry:ServiceVersion"] ?? "1.0.0")
-                .AddAttributes(new Dictionary<string, object>
+                    serviceVersion: configuration["OpenTelemetry:ServiceVersion"])
+                .AddAttributes([
+                    new KeyValuePair<string, object>("deployment.environment.name", environment.EnvironmentName)
+                ]))
+            .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation(options =>
                 {
-                    ["deployment.environment"] = environment.EnvironmentName,
-                    ["host.name"] = Environment.MachineName,
-                    ["service.instance.id"] = Environment.MachineName + "_" + Environment.ProcessId
-                }))
-
-            // 🔍 TRACING: Export spans via OTLP (Jaeger ingests OTLP natively)
-            .WithTracing(tracing =>
-            {
-                tracing.AddAspNetCoreInstrumentation(options =>
-                    {
-                        options.RecordException = true;
-                        options.EnrichWithHttpRequest = (activity, request) =>
-                        {
-                            activity.SetTag("http.client_ip", request.HttpContext.Connection.RemoteIpAddress?.ToString());
-                            activity.SetTag("http.user_agent", request.Headers.UserAgent.ToString());
-                            activity.SetTag("saffa.request_id", Guid.NewGuid().ToString());
-                        };
-                        options.EnrichWithHttpResponse = (activity, response) =>
-                        {
-                            activity.SetTag("http.response_content_length", response.ContentLength);
-                        };
-                    })
-                    .AddHttpClientInstrumentation()
-                    .AddSource(activitySource.Name)
-                    .AddSource("SaffaApi.PhraseService") // Add PhraseService activity source
-                    .AddOtlpExporter(otlpOptions =>
-                    {
-                        otlpOptions.Endpoint = new Uri(tracesEndpoint);
-                        otlpOptions.Protocol = OtlpExportProtocol.Grpc;
-                        otlpOptions.TimeoutMilliseconds = 10000;
-                        Console.WriteLine($"🔍 OTLP Tracing configured: {otlpOptions.Endpoint}");
-                    });
-            })
-
-            // 📊 METRICS: Using OTLP for metrics collection  
+                    options.Filter = context => !context.Request.Path.StartsWithSegments(HealthPath);
+                    options.RecordException = true;
+                    // Runs when the request ends: routing has picked the endpoint and
+                    // UseForwardedHeaders has replaced the proxy address with the real client IP.
+                    options.EnrichWithHttpResponse = (activity, response) => EnrichServerSpan(activity, response.HttpContext);
+                })
+                .AddHttpClientInstrumentation()
+                .AddSource(PhraseService.ActivitySourceName))
             .WithMetrics(metrics => metrics
+                // Attach trace IDs (exemplars) to histogram samples recorded inside a sampled trace,
+                // so Grafana can jump from a latency spike straight to the Tempo trace behind it.
+                .SetExemplarFilter(ExemplarFilterType.TraceBased)
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
-                .AddRuntimeInstrumentation()
-                .AddProcessInstrumentation()
-                .AddMeter(customMeter.Name)
-                .AddOtlpExporter(options =>
-                {
-                    options.Endpoint = new Uri(otlpEndpoint);
-                    options.Protocol = OtlpExportProtocol.Grpc;
-                    options.TimeoutMilliseconds = 10000;
-                    Console.WriteLine($"📊 Metrics configured: {options.Endpoint}");
-                }));
+                .AddRuntimeInstrumentation())
+            .WithLogging(_ => { }, options =>
+            {
+                options.IncludeFormattedMessage = true;
+                options.IncludeScopes = true;
+            });
 
-        // Register telemetry objects as singletons
-        services.AddSingleton(activitySource);
-        services.AddSingleton(customMeter);
-        services.AddSingleton(requestCounter);
-        services.AddSingleton(requestDuration);
+        if (!string.IsNullOrWhiteSpace(configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]))
+            otelBuilder.UseOtlpExporter();
 
         return services;
     }
 
-    public static IApplicationBuilder UseSaffaTelemetryMiddleware(this IApplicationBuilder app)
+    /// <summary>
+    ///     Adds the SaffaApi attributes to the ASP.NET Core server span:
+    ///     <c>saffa.operation</c> (stable name per endpoint), <c>saffa.success</c> (status below 400)
+    ///     and <c>saffa.request_id</c> (unique per request, searchable in Tempo).
+    /// </summary>
+    internal static void EnrichServerSpan(Activity activity, HttpContext context)
     {
-        return app.Use(async (context, next) =>
-        {
-            ActivitySource activitySource = context.RequestServices.GetRequiredService<ActivitySource>();
-            Counter<long> requestCounter = context.RequestServices.GetRequiredService<Counter<long>>();
-            Histogram<double> requestDuration = context.RequestServices.GetRequiredService<Histogram<double>>();
+        string? routePattern = (context.GetEndpoint() as RouteEndpoint)?.RoutePattern.RawText;
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            string route = context.Request.Path.Value ?? "unknown";
-            string method = context.Request.Method;
-
-            using Activity? activity = activitySource.StartActivity($"{method} {route}");
-            activity?.SetTag("http.route", route);
-            activity?.SetTag("http.method", method);
-            activity?.SetTag("http.scheme", context.Request.Scheme);
-            activity?.SetTag("http.host", context.Request.Host.Value);
-            activity?.SetTag("saffa.operation", GetOperationName(route));
-
-            try
-            {
-                await next();
-
-                stopwatch.Stop();
-                string statusCode = context.Response.StatusCode.ToString();
-
-                requestCounter.Add(1, new TagList
-                {
-                    { "route", route },
-                    { "method", method },
-                    { "status_code", statusCode }
-                });
-
-                requestDuration.Record(stopwatch.Elapsed.TotalSeconds, new TagList
-                {
-                    { "route", route },
-                    { "method", method },
-                    { "status_code", statusCode }
-                });
-
-                activity?.SetStatus(ActivityStatusCode.Ok);
-                activity?.SetTag("http.status_code", statusCode);
-                activity?.SetTag("saffa.success", true);
-            }
-            catch (Exception ex)
-            {
-                stopwatch.Stop();
-
-                requestCounter.Add(1, new TagList
-                {
-                    { "route", route },
-                    { "method", method },
-                    { "status_code", "500" }
-                });
-
-                requestDuration.Record(stopwatch.Elapsed.TotalSeconds, new TagList
-                {
-                    { "route", route },
-                    { "method", method },
-                    { "status_code", "500" }
-                });
-
-                activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
-                activity?.SetTag("http.status_code", "500");
-                activity?.SetTag("exception.type", ex.GetType().Name);
-                activity?.SetTag("exception.message", ex.Message);
-                activity?.SetTag("saffa.success", false);
-
-                throw;
-            }
-        });
+        activity.SetTag("saffa.operation", GetOperationName(routePattern));
+        activity.SetTag("saffa.success", context.Response.StatusCode < 400);
+        activity.SetTag("saffa.request_id", Guid.NewGuid().ToString());
+        activity.SetTag("http.client_ip", context.Connection.RemoteIpAddress?.ToString());
+        activity.SetTag("http.response_content_length", context.Response.ContentLength);
     }
 
-    private static string GetOperationName(string route)
-    {
-        return route switch
+    /// <summary>
+    ///     Maps the matched route template (not the raw path) to an operation name, so values stay
+    ///     bounded no matter which terms or scanner paths are requested. Unmatched requests (404)
+    ///     have no endpoint and become <c>unknown_operation</c>.
+    /// </summary>
+    internal static string GetOperationName(string? routePattern) =>
+        routePattern?.TrimStart('/') switch
         {
-            "/" => "get_root",
-            "/phrase" => "get_random_phrase",
-            "/phrase/dutch" => "get_dutch_phrase",
-            var path when path.StartsWith("/phrase/category/") => "get_phrases_by_category",
-            var path when path.StartsWith("/phrase/") => "get_phrase_by_term",
-            "/health" => "health_check",
+            null => "unknown_operation",
+            "" => "get_root",
+            "phrase" => "get_random_phrase",
+            "phrase/dutch" => "get_dutch_phrase",
+            "phrase/{term}" => "get_phrase_by_term",
+            "phrase/category/{category}" => "get_phrases_by_category",
+            "health" => "health_check",
+            var p when p.StartsWith("openapi/", StringComparison.Ordinal) => "get_openapi_document",
+            var p when p.StartsWith("scalar", StringComparison.Ordinal) => "get_api_reference",
             _ => "unknown_operation"
         };
-    }
 }
