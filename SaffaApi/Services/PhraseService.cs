@@ -11,7 +11,8 @@ public class PhraseService : IPhraseService
     private readonly Dictionary<string, List<Phrase>> _phrasesByCategory;
     private readonly Dictionary<string, Phrase> _phrasesByTerm;
     private static readonly Random Random = new();
-    private static readonly ActivitySource ActivitySource = new("SaffaApi.PhraseService");
+    public const string ActivitySourceName = "SaffaApi.PhraseService";
+    private static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 
     public PhraseService(string jsonFilePath)
     {

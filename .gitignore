@@ -483,3 +483,6 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 docs/superpowers/
+
+# Local/host-specific compose overrides (e.g. publishing a port during a rollout)
+docker-compose.override.yml
